@@ -69,7 +69,7 @@ exports.updateHospital = async (req, res) => {
 
     if (hospital == null) {
         return res.status(200).send({
-            message: "Company doesn't exist"
+            message: "Hospital doesn't exist"
         })
     }
 
@@ -77,7 +77,7 @@ exports.updateHospital = async (req, res) => {
 
     hospital.name = req.body.name != undefined ? req.body.name : hospital.name;
     hospital.address = req.body.address != undefined ? req.body.address : hospital.address;
-    hospital.doctor_ids = req.body.doctor_ids != undefined ? req.body.doctor_ids : hospital.verified;
+    hospital.doctor_ids = req.body.doctor_ids != undefined ? req.body.doctor_ids : hospital.doctor_ids;
 
 
     const updatedHospital = await hospital.save();
