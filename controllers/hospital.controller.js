@@ -92,7 +92,9 @@ exports.deleteHospital = async (req, res) => {
         const hospital = await Hospital.deleteOne({
             _id: req.params.id
         });    
-        res.status(200).send(hospital);
+        res.status(200).send({
+            message : "succesfully deleted hospital"
+        });
     } catch (error) {
         console.log(err.message);
         return res.status(500).send({
