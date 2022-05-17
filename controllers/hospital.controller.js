@@ -5,7 +5,6 @@ exports.createHospital = async (req, res) => {
     const hospitalObjToBeStoredInDB = {
         name : req.body.name,
         address : req.body.address,
-        doctor_ids: req.body.doctor_ids
     }
 
  try {
