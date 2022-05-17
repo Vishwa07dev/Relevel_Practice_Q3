@@ -1,10 +1,6 @@
 const Hospital = require("../models/hospital.model");
 
-
-
 exports.addHospital = async (req, res) => {
-
-
 
     const hospitalObj = {
         name: req.body.name,
@@ -70,8 +66,6 @@ exports.updateHospital = async (req, res) => {
                 message: "Hospital doesn't exist"
             })
         }
-    
-    
     
         hospital.name = req.body.name != undefined ? req.body.name : hospital.name;
         hospital.address = req.body.address != undefined ? req.body.address : hospital.address;
