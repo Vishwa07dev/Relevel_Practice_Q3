@@ -19,11 +19,11 @@ exports.createHospital = async (req, res) => {
         name : hospitalCreated.name,
         address : hospitalCreated.address,
     }
-    res.status(201).send(hospitalCreationResponse);
+    return res.status(201).send(hospitalCreationResponse);
 
 } catch(err){
     console.error("Error while creating new hospital", err.message);
-    res.status(500).send({
+    return res.status(500).send({
         message : "some internal error while inserting new hospital"
     })
     }
