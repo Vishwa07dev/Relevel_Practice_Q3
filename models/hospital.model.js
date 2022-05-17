@@ -4,9 +4,6 @@ const mongoose = require("mongoose");
 
 const hospitalSchema = new mongoose.Schema({
 
-    /**
-     * name, address, verified, createdAt , updatedAt
-     */
     name : {
         type : String,
         required : true
