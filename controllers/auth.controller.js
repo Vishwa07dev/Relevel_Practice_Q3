@@ -13,16 +13,22 @@ const objectConverter = require("../utils/objectConverter");
 exports.signup = async (req, res) => {
 
     try {
-        if(req.body.hospitalId){
-            // validate hospitalId
-            const hospital = await Hospital.findOne({
-                _id: req.body.hospitalId
-            });
+        if(req.body.userType == constants.userType.doctor){
+            if(req.body.hospitalId){
+                // validate hospitalId
+                const hospital = await Hospital.findOne({
+                    _id: req.body.hospitalId
+                });
 
-            console.log(hospital);
-            if(hospital == null){
+                console.log(hospital);
+                if(hospital == null){
+                    return res.status(400).send({
+                        message: "Hospital Doesnt Exist"
+                    })
+                }
+            }else{
                 return res.status(400).send({
-                    message: "Hospital Doesnt Exist"
+                    message: "HospitalId Needed"
                 })
             }
         }
@@ -31,7 +37,6 @@ exports.signup = async (req, res) => {
         const userObjToBeStoredInDB = {
             name: req.body.name,
             userId: req.body.userId,
-            email: req.body.email,
             password: bcrypt.hashSync(req.body.password, 8),
             address: req.body.address,
             userType: req.body.userType,
@@ -90,7 +95,6 @@ exports.signin = async (req, res) => {
     res.status(200).send({
         name: user.name,
         userId: user.userId,
-        email: user.email,
         address: user.address,
         userType: user.userType,
         accessToken: token

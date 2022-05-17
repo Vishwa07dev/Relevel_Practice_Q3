@@ -26,7 +26,6 @@ mongoose.connect(dbConfig.DB_URL, async () => {
         name: "Vishwa Mohan",
         userId: "admin",
         password: bcrypt.hashSync("Welcome1", 8),
-        email: "kankvish@gmail.com",
         address: "Balendur, Bangalore",
         userType: constants.userType.admin
     });
