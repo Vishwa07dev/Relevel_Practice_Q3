@@ -26,33 +26,13 @@ validateSignupRequest = async (req,res,next) => {
             message : "failed ! User Id already exist"
         })
     }
-    //email presnt 
-    if(!req.body.email){
-        return res.status(400).send({
-            message : "failed ! email is not provided"
-        })
-    }
     
-    //email format
-    var regexEmail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-    var tempEmail = req.body.email; 
-    // console.log(tempEmail);
-    if(!tempEmail.match(regexEmail)){
-        return res.status(400).send({
-            message : "failed ! email is not in the standard format"
-        })
-    }
+    
+    
 
 
 
 
-    //unique email 
-    const email = await user.findOne({email : req.body.email});
-    if(email != null){
-        return res.status(400).send({
-            message : "failed ! email already exist"
-        })
-    }
 
 
     //password not provided 
@@ -64,7 +44,7 @@ validateSignupRequest = async (req,res,next) => {
 
 
     const userType = req.body.userType ;
-    const userTypes = [ constant.userTypes.customer , constant.userTypes.admin, constant.userTypes.engineer]
+    const userTypes = [ constant.userType.patient, constant.userType.doctor, constant.userType.admin]
     if(userType && !userTypes.includes(userType)){
         return res.status(400).send({
             message : "Failed !  User type is not correctly provided"
