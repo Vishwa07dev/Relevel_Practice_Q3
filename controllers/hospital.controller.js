@@ -18,7 +18,6 @@ exports.createHospital = async (req, res) => {
     const hospitalCreationResponse  = {
         name : hospitalCreated.name,
         address : hospitalCreated.address,
-        doctor_ids: hospitalCreated.address
     }
     res.status(201).send(hospitalCreationResponse);
 
