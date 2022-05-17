@@ -75,10 +75,12 @@ exports.updateHospital = async (req, res) => {
     
         hospital.name = req.body.name != undefined ? req.body.name : hospital.name;
         hospital.address = req.body.address != undefined ? req.body.address : hospital.address;
-        hospital.doctors.push(req.body.doctors);
+        // hospital.doctors = req.body.doctors != undefined ? req.body.doctors : hospital.doctors;
     
     
         const updatedHospital = await hospital.save();
+    
+    
     
         return res.status(200).send(updatedHospital);
     }catch(err){
