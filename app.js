@@ -3,7 +3,6 @@ const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const dbConfig = require("./configs/db.config");
 const serverConfig = require("./configs/server.config");
-const bcrypt = require("bcryptjs");
 
 
 const app = express();

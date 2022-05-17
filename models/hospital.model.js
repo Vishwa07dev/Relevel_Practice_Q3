@@ -15,8 +15,9 @@ const hospitalSchema = new mongoose.Schema({
         type : String,
         required : true
     },
-    doctor_ids :{
-        type : [mongoose.SchemaTypes.ObjectId]
+    doctors :{
+        type : [mongoose.SchemaTypes.ObjectId],
+        ref: "Doctor"
     },
     createdAt : {
         type : Date,
