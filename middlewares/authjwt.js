@@ -64,7 +64,7 @@ isAdmin = async (req,res, next) =>{
     }
 }
 
-isPatientOrDoctor = async (req,res, next) =>{
+isPatient = async (req,res, next) =>{
 
     /**
      * Fetcht user from the DB using the userId
@@ -74,11 +74,11 @@ isPatientOrDoctor = async (req,res, next) =>{
     /**
      * Check what is the user type
      */
-    if(user && ( user.userType == constants.userType.patient || user.userType == constants.userType.doctor )){
+    if(user && user.userType == constants.userType.patient){
         next();
     }else{
         res.status(403).send({
-            message: "Requires PATIENT/DOCTOR role"
+            message: "Requires PATIENT role"
         })
     }
 }
@@ -86,6 +86,6 @@ isPatientOrDoctor = async (req,res, next) =>{
 const authJwt = {
     verifyToken : verifyToken,
     isAdmin : isAdmin,
-    isPatientOrDoctor: isPatientOrDoctor
+    isPatient: isPatient
 };
 module.exports= authJwt;

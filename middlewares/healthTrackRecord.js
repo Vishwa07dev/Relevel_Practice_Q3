@@ -29,7 +29,40 @@ const verifyAddRecord = async (req,res, next) =>{
     }
 };
 
+const verifyGetRecords = async (req,res, next) =>{
+    try {
+        const user = await User.findOne({
+            userId: req.userId
+        });
+
+        if(user.userType == constants.userType.doctor || user.userType == constants.userType.admin){
+            if(!req.query.patientId || req.query.patientId == ""){
+                return res.status(400).send({
+                    message: "Patient Id is required to view track records"
+                })
+            }
+        }
+
+        // validate patient id
+        const patient = await User.findOne({
+            userId: req.query.patientId
+        });
+
+        if(patient == null){
+            return res.status(400).send({
+                message: "Patient Id is invalid"
+            })
+        }
+        next();
+    } catch (err) {
+        return res.status(500).send({
+            message: "Some internal error"
+        })
+    }
+};
+
 const verifyTrackRecord = {
-    verifyAddRecord : verifyAddRecord
+    verifyAddRecord : verifyAddRecord,
+    verifyGetRecords: verifyGetRecords
 };
 module.exports= verifyTrackRecord;

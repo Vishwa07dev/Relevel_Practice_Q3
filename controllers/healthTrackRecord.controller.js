@@ -71,9 +71,20 @@ exports.updateRecord = async (req, res) => {
 
 exports.getAllRecords = async (req, res) => {
     try {
-        const healthTrackRecords = await HealthTrackRecord.find({
+        const user = await User.findOne({
             userId: req.userId
         });
+
+        let queryObj = {};
+        
+        if(user.userType == constants.userType.doctor || user.userType == constants.userType.admin){
+            queryObj.userId = req.query.patientId;
+        }else{
+            queryObj.userId = req.userId;
+        }
+
+        const healthTrackRecords = await HealthTrackRecord.find(queryObj);
+
         return res.status(200).send(healthTrackRecords);
     } catch (err) {
         console.log(err.message);
