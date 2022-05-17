@@ -3,7 +3,7 @@ const {verifySignUp} = require('../middleware')
 
 module.exports = (app)=>{
 
-    app.post("/crm/api/v1/auth/signup",[verifySignUp.validateSignUpRequest],authController.signup);
-    app.post("/crm/api/v1/auth/signin",authController.signin);
+    app.post("/getfit/api/v1/hospitals/signup",[verifySignUp.validateSignUpRequest],authController.signup);
+    app.post("/getfit/api/v1/signin",authController.signin);
 
 }
