@@ -40,10 +40,9 @@ exports.updateHospital = async (req, res) => {
     hospital.address = req.body.name != undefined ? req.hospital.address: hospital.address;
     
     if(req.body.doctor_ids) {
-        hospital.doctor_ids.push(req.body.doctor_ids);
+        hospital.req.doctor_ids.push(req.body.doctor_ids);
     }
     
-
     const updatedHospitalDetails = await hospital.save();
 
     return res.status(200).send({
