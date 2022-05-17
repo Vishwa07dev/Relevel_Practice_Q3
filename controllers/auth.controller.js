@@ -19,7 +19,8 @@ exports.signup = async (req, res) => {
                 _id: req.body.hospitalId
             });
 
-            if(!hospital){
+            console.log(hospital);
+            if(hospital == null){
                 return res.status(400).send({
                     message: "Hospital Doesnt Exist"
                 })
