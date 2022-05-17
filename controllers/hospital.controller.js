@@ -1,10 +1,6 @@
 const Hospital = require("../models/hospital.model");
 
-
-
 exports.addHospital = async (req, res) => {
-
-
 
     const hospitalObj = {
         name: req.body.name,
