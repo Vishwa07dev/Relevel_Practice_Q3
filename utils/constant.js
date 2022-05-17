@@ -1,5 +1,5 @@
 module.exports = {
-    usertype :{
+    userType :{
         patient : "PATIENT",
         doctor : "DOCTOR",
         admin : "ADMIN"

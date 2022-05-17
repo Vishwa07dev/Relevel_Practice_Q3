@@ -2,10 +2,10 @@ const constants = require("../utils/constant")
 const mongoose = require("mongoose");
 
 
-const hospitalSchema = new mongoose.Schema({
+const userSchema = new mongoose.Schema({
 
     /**
-     * name, address, verified, createdAt , updatedAt
+     * name, address, , createdAt , updatedAt
      */
     name : {
         type : String,
@@ -13,12 +13,12 @@ const hospitalSchema = new mongoose.Schema({
     },
     userId :{
         type :String,
-        required : true,
+        required : true
     },
     password :{
         type : String,
-        required : true,
-        
+        required : true
+
     },
     address : {
         type : String,
@@ -28,9 +28,10 @@ const hospitalSchema = new mongoose.Schema({
         type : [mongoose.SchemaTypes.ObjectId],
         ref :"Hospital"
     },
-    type :{
-        required : true,
-        default : constants.usertype.patient
+    userType :{
+        type : String,
+        default : constants.userType.patient,
+        required : true
     },
     createdAt : {
         type : Date,
@@ -48,4 +49,4 @@ const hospitalSchema = new mongoose.Schema({
 
 });
 
-module.exports = mongoose.model("Hospital", hospitalSchema);
+module.exports = mongoose.model("User", userSchema);
