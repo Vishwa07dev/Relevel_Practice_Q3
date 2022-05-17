@@ -1,36 +1,35 @@
-const Hospital = require("../models/hospital.model");
 const HealthTrackRecord = require("../models/healthTrackRecord.model");
 const constants = require("../utils/constants");
 const User = require("../models/user.model");
 
 exports.addRecord = async (req, res) => {
 
-    const healthTrackRecordObj = {
-        height: req.body.height,
-        weight: req.body.weight,
-        bloodPressure: req.body.bloodPressure,
-        sugerLevel: req.body.sugerLevel,
-        bodyTemparature: req.body.bodyTemparature
-    }
-
     try {
         const user = await User.findOne({
-            userId: req.body.userId
+            userId: req.userId
         });
-        
+
+        const healthTrackRecordObj = {
+            height: req.body.height,
+            weight: req.body.weight,
+            bloodPressure: req.body.bloodPressure,
+            sugerLevel: req.body.sugerLevel,
+            bodyTemparature: req.body.bodyTemparature,
+            userId: req.userId
+        }
+
         const healthTrackRecord = await HealthTrackRecord.create(healthTrackRecordObj);
 
         if(healthTrackRecord){
-
             // update inside patient object
-            User.healthTrackRecords.push(healthTrackRecord._id);
-            const updatedUser = await User.save();
+            console.log(user);
+            user.healthTrackRecords.push(healthTrackRecord._id);
+            const updatedUser = await user.save();
+
+            return res.status(201).send(updatedUser);
         }else{
             throw new Error("Failed to create Health Track Record");
         }
-
-        return res.status(201).send(updatedUser);
-
     } catch (err) {
         console.log(err.message);
         return res.status(500).send({
@@ -43,7 +42,7 @@ exports.addRecord = async (req, res) => {
 exports.updateRecord = async (req, res) => {
 
     try{
-        const healthTrackRecord = await Hospital.findOne({
+        const healthTrackRecord = await HealthTrackRecord.findOne({
             _id: req.params.id
         });
 
@@ -53,11 +52,11 @@ exports.updateRecord = async (req, res) => {
             })
         }
 
-        healthTrackRecord.height = req.body.height != undefined ? req.body.height : hospital.height;
-        healthTrackRecord.weight = req.body.weight != undefined ? req.body.weight : hospital.weight;
-        healthTrackRecord.bloodPressure = req.body.bloodPressure != undefined ? req.body.bloodPressure : hospital.bloodPressure;
-        healthTrackRecord.sugerLevel = req.body.sugerLevel != undefined ? req.body.sugerLevel : hospital.sugerLevel;
-        healthTrackRecord.bodyTemparature = req.body.bodyTemparature != undefined ? req.body.bodyTemparature : hospital.bodyTemparature;
+        healthTrackRecord.height = req.body.height != undefined ? req.body.height : healthTrackRecord.height;
+        healthTrackRecord.weight = req.body.weight != undefined ? req.body.weight : healthTrackRecord.weight;
+        healthTrackRecord.bloodPressure = req.body.bloodPressure != undefined ? req.body.bloodPressure : healthTrackRecord.bloodPressure;
+        healthTrackRecord.sugerLevel = req.body.sugerLevel != undefined ? req.body.sugerLevel : healthTrackRecord.sugerLevel;
+        healthTrackRecord.bodyTemparature = req.body.bodyTemparature != undefined ? req.body.bodyTemparature : healthTrackRecord.bodyTemparature;
     
         const updatedRecord = await healthTrackRecord.save();
 
@@ -72,8 +71,10 @@ exports.updateRecord = async (req, res) => {
 
 exports.getAllRecords = async (req, res) => {
     try {
-        const user = await User.find();
-        return res.status(200).send(user.healthTrackRecords)
+        const healthTrackRecords = await HealthTrackRecord.find({
+            userId: req.userId
+        });
+        return res.status(200).send(healthTrackRecords);
     } catch (err) {
         console.log(err.message);
         return res.status(500).send({
@@ -111,7 +112,7 @@ exports.deleteRecord = async (req, res) => {
         }
 
         const user = await User.findOne({
-            userId: req.body.userId
+            userId: req.userId
         });
         
         let removableIndex = user.healthTrackRecords.indexOf(healthTrackRecord._id);

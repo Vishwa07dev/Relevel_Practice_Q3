@@ -23,6 +23,10 @@ const healthTrackRecordSchema = new mongoose.Schema({
         type : String,
         required : true
     },
+    userId: {
+        type : String,
+        required : true
+    },
     createdAt : {
         type : Date,
         immutable : true,

@@ -1,18 +1,17 @@
 
-const healthTrackRecordController = require("../controllers/healthTrackRecord.controller")
-const { authJwt } = require("../middlewares");
+const healthTrackRecordController = require("../controllers/healthTrackRecord.controller");
+const { authJwt, verifyTrackRecord } = require("../middlewares");
 
 module.exports = (app)=>{
-
-    console.log([verifyToken, isPatientOrDoctor], healthTrackRecordController.addRecord);
-    app.post("/getfit/api/v1/healthTrackRecords", [authJwt.verifyToken, authJwt.isPatientOrDoctor], healthTrackRecordController.addRecord);
-
-    app.put("/getfit/api/v1/healthTrackRecords/:id", [authJwt.verifyToken, authJwt.isPatientOrDoctor], healthTrackRecordController.updateRecord);
-
-    app.delete("/getfit/api/v1/healthTrackRecords/:id", [authJwt.verifyToken, authJwt.isPatientOrDoctor], healthTrackRecordController.deleteRecord);
     
-    app.get("/getfit/api/v1/healthTrackRecords", [authJwt.verifyToken, authJwt.isPatientOrDoctor], healthTrackRecordController.getAllRecords);
+    app.post("/getfit/api/v1/healthTrackRecords", [authJwt.verifyToken, verifyTrackRecord.verifyAddRecord], healthTrackRecordController.addRecord);
+
+    app.put("/getfit/api/v1/healthTrackRecords/:id", [authJwt.verifyToken], healthTrackRecordController.updateRecord);
+
+    app.delete("/getfit/api/v1/healthTrackRecords/:id", [authJwt.verifyToken], healthTrackRecordController.deleteRecord);
     
-    app.get("/getfit/api/v1/healthTrackRecords/:id", [authJwt.verifyToken, authJwt.isPatientOrDoctor], healthTrackRecordController.getOneRecord);
+    app.get("/getfit/api/v1/healthTrackRecords", [authJwt.verifyToken], healthTrackRecordController.getAllRecords);
+    
+    app.get("/getfit/api/v1/healthTrackRecords/:id", [authJwt.verifyToken], healthTrackRecordController.getOneRecord);
     
 }
