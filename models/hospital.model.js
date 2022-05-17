@@ -13,6 +13,19 @@ const hospitalSchema = new mongoose.Schema({
     doctor_ids: {
         type: Array,
         required: true
+    },
+    createdAt : {
+        type : Date,
+        immutable : true,
+        default : ()=>{
+            return Date.now();
+        }
+    },
+    updatedAt : {
+        type : Date,
+        default : ()=>{
+            return Date.now();
+        }
     }
     
 });
