@@ -1,5 +1,6 @@
 const Hospital = require("../models/hospital.model"); 
 const objectConverter = require("../utils/objectConverter");
+
 exports.createHospital = async (req, res) => {
 
     const hospitalObjToBeStoredInDB = {
@@ -49,7 +50,7 @@ exports.updateHospital = async (req, res) => {
     }
 }
 
-exports.getHospitals = async (req, res) => {
+exports.getAllHospitals = async (req, res) => {
     try {
         const hospitals = await Hospital.find({});
 
