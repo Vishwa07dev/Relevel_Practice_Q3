@@ -20,6 +20,7 @@ exports.takeAppointment = async (req, res) => {
 
         const appointmentObj = {
             patientId: user._id,
+            hospitalId: req.body.hospitalId,
             doctorId: req.body.doctorId,
             date: req.body.date,
             cost: req.body.cost,
