@@ -10,7 +10,7 @@ module.exports = (app)=>{
 
     app.delete("/getfit/api/v1/healthTrackRecords/:id", [authJwt.verifyToken, authJwt.isPatient, authJwt.isAdmin, verifyTrackRecord.isOwnerOfHealthRecord], healthTrackRecordController.deleteRecord);
     
-    app.get("/getfit/api/v1/healthTrackRecords", [authJwt.verifyToken, verifyTrackRecord.isOwnerOfHealthRecord, verifyTrackRecord.verifyGetRecords], healthTrackRecordController.getAllRecords);
+    app.get("/getfit/api/v1/healthTrackRecords", [authJwt.verifyToken, verifyTrackRecord.verifyGetRecords], healthTrackRecordController.getAllRecords);
     
     app.get("/getfit/api/v1/healthTrackRecords/:id", [authJwt.verifyToken], verifyTrackRecord.isOwnerOfHealthRecord, healthTrackRecordController.getOneRecord);
     
