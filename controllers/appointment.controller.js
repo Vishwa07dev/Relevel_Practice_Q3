@@ -67,8 +67,9 @@ exports.updateAppointment = async (req, res) => {
         appointment.date = req.body.date != undefined ? req.body.date : appointment.date;
         appointment.cost = req.body.cost != undefined ? req.body.cost : appointment.cost;
         appointment.status = req.body.status != undefined ? req.body.status : appointment.status;
+        appointment.prescription = req.body.prescription != undefined ? req.body.prescription : appointment.prescription;
         appointment.identifiedSymptoms = req.body.identifiedSymptoms != undefined ? req.body.identifiedSymptoms : appointment.identifiedSymptoms;
-    
+        
         const updatedAppointment = await appointment.save();
 
         return res.status(200).send(updatedAppointment);

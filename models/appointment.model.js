@@ -31,6 +31,9 @@ const appointmentSchema = new mongoose.Schema({
     identifiedSymptoms: {
         type: [String]
     },
+    prescription: {
+        type: String
+    },
     createdAt : {
         type : Date,
         immutable : true,
