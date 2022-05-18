@@ -35,7 +35,9 @@ exports.addHealthCard = async (req, res) => {
 // how patient get health card
 exports.getHealthCard = async (req, res) => {
     try {
-        const healthCard = await HealthCard.findOne({ _id: req.userId.healthCard_id })
+        const user = await User.findOne({ userId: req.userId })
+
+        const healthCard = await HealthCard.findOne({ _id: user.healthCard_id })
 
         res.status(200).send(healthCard);
 
