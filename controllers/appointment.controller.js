@@ -144,28 +144,31 @@ exports.deleteAppointment = async (req, res) => {
             })
         }
 
-        await Appointment.deleteOne({
-            _id: req.params.id
-        });
+        appointment.status = constants.appointmentStatus.cancel;
+        await appointment.save();
 
-        const patient = await User.findOne({
-            _id: appointment.patientId
-        });
-        const doctor = await User.findOne({
-            _id: appointment.doctorId
-        });
+        // await Appointment.deleteOne({
+        //     _id: req.params.id
+        // });
+
+        // const patient = await User.findOne({
+        //     _id: appointment.patientId
+        // });
+        // const doctor = await User.findOne({
+        //     _id: appointment.doctorId
+        // });
         
-        let removableIndex = patient.appointments.indexOf(appointment._id);
-        if (removableIndex > -1) {
-            patient.appointments.splice(removableIndex, 1);
-        }
-        removableIndex = doctor.appointments.indexOf(appointment._id);
-        if (removableIndex > -1) {
-            doctor.appointments.splice(removableIndex, 1);
-        }
+        // let removableIndex = patient.appointments.indexOf(appointment._id);
+        // if (removableIndex > -1) {
+        //     patient.appointments.splice(removableIndex, 1);
+        // }
+        // removableIndex = doctor.appointments.indexOf(appointment._id);
+        // if (removableIndex > -1) {
+        //     doctor.appointments.splice(removableIndex, 1);
+        // }
 
-        await patient.save();
-        await doctor.save();
+        // await patient.save();
+        // await doctor.save();
 
         res.status(200).send({
             message: "Appointment deleted successfully"
