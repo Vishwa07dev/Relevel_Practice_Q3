@@ -119,7 +119,9 @@ isOwnerOfAppointment = async (req,res, next) =>{
             })
         }
 
+        console.log(user._id.valueOf());
         if(user.userType == constants.userType.patient){
+            console.log(appointment.patientId, user);
             if(appointment.patientId != user._id){
                 return res.status(400).send({
                     message: "Only the OWNER has access to this"

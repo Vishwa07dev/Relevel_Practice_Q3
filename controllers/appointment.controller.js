@@ -1,4 +1,6 @@
 const Appointment = require("../models/appointment.model");
+const Hospital = require("../models/hospital.model");
+const User = require("../models/user.model");
 const constants = require("../utils/constants");
 const User = require("../models/user.model");
 
@@ -15,6 +17,16 @@ exports.takeAppointment = async (req, res) => {
         if(doctor == null){
             return res.status(400).send({
                 message: "Invalid doctor Id"
+            })
+        }
+
+        const hospital = await Hospital.findOne({
+            _id: req.body.hospitalId
+        });
+
+        if (hospital == null) {
+            return res.status(400).send({
+                message: "Hospital doesn't exist"
             })
         }
 
