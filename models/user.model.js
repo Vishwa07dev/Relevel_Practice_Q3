@@ -51,6 +51,10 @@
          type : [mongoose.SchemaTypes.ObjectId],
          ref : "Hospital"
      },
+     healthTrackRecords: {
+        type : [mongoose.SchemaTypes.ObjectId],
+        ref : "HealthTrackRecord"
+     }
  
  });
  
