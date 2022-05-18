@@ -1,6 +1,7 @@
 const jwt = require("jsonwebtoken");
 const config = require("../configs/auth.config");
 const User = require("../models/user.model");
+const Appointment = require("../models/appointment.model");
 const constants = require("../utils/constants");
 
 
@@ -102,10 +103,44 @@ isDoctor = async (req,res, next) =>{
     }
 }
 
+isOwnerOfAppointment = async (req,res, next) =>{
+    try {
+        const user = await User.findOne({
+            userId: req.userId
+        });
+        
+        const appointment = await Appointment.findOne({
+            _id: req.params.id
+        });
+
+        if(appointment == null){
+            return res.status(400).send({
+                message: "Appointment doesn't exist"
+            })
+        }
+
+        if(user.userType == constants.userType.patient){
+            if(appointment.patientId != user._id){
+                return res.status(400).send({
+                    message: "Only the OWNER has access to this"
+                })
+            }
+        }
+        
+        next();
+    } catch (err) {
+        // console.log("verifyAddRecord", err.message);
+        return res.status(500).send({
+            message: "Some internal error"
+        })
+    }
+}
+
 const authJwt = {
     verifyToken : verifyToken,
     isAdmin : isAdmin,
     isPatient: isPatient,
-    isDoctor: isDoctor
+    isDoctor: isDoctor,
+    isOwnerOfAppointment: isOwnerOfAppointment
 };
 module.exports= authJwt;
