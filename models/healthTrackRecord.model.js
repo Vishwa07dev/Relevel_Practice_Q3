@@ -23,6 +23,9 @@ const healthTrackRecordSchema = new mongoose.Schema({
         type : String,
         required : true
     },
+    identifiedSymptoms: {
+        type: [String]
+    },
     userId: {
         type : String,
         required : true

@@ -15,7 +15,8 @@ exports.addRecord = async (req, res) => {
             bloodPressure: req.body.bloodPressure,
             sugerLevel: req.body.sugerLevel,
             bodyTemparature: req.body.bodyTemparature,
-            userId: req.userId
+            identifiedSymptoms: req.body.identifiedSymptoms,
+            userId: req.userId,
         }
 
         const healthTrackRecord = await HealthTrackRecord.create(healthTrackRecordObj);
@@ -57,6 +58,7 @@ exports.updateRecord = async (req, res) => {
         healthTrackRecord.bloodPressure = req.body.bloodPressure != undefined ? req.body.bloodPressure : healthTrackRecord.bloodPressure;
         healthTrackRecord.sugerLevel = req.body.sugerLevel != undefined ? req.body.sugerLevel : healthTrackRecord.sugerLevel;
         healthTrackRecord.bodyTemparature = req.body.bodyTemparature != undefined ? req.body.bodyTemparature : healthTrackRecord.bodyTemparature;
+        healthTrackRecord.identifiedSymptoms = req.body.identifiedSymptoms != undefined ? req.body.identifiedSymptoms : healthTrackRecord.identifiedSymptoms;
     
         const updatedRecord = await healthTrackRecord.save();
 

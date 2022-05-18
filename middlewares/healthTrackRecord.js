@@ -41,18 +41,18 @@ const verifyGetRecords = async (req,res, next) =>{
                     message: "Patient Id is required to view track records"
                 })
             }
+            // validate patient id
+            const patient = await User.findOne({
+                userId: req.query.patientId
+            });
+
+            if(patient == null){
+                return res.status(400).send({
+                    message: "Patient Id is invalid"
+                })
+            }
         }
 
-        // validate patient id
-        const patient = await User.findOne({
-            userId: req.query.patientId
-        });
-
-        if(patient == null){
-            return res.status(400).send({
-                message: "Patient Id is invalid"
-            })
-        }
         next();
     } catch (err) {
         return res.status(500).send({
