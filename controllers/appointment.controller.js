@@ -9,7 +9,7 @@ exports.takeAppointment = async (req, res) => {
             userId: req.userId
         });
         const doctor = await User.findOne({
-            userId: req.body.doctorId
+            _id: req.body.doctorId
         });
 
         if(doctor == null){
