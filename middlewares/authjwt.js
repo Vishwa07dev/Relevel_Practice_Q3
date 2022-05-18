@@ -128,6 +128,13 @@ isOwnerOfAppointment = async (req,res, next) =>{
                 })
             }
         }
+        if(user.userType == constants.userType.doctor){
+            if(appointment.doctorId != user._id){
+                return res.status(400).send({
+                    message: "Only the OWNER has access to this"
+                })
+            }
+        }
         
         next();
     } catch (err) {
