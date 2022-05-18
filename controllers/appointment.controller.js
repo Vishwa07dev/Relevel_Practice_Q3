@@ -2,7 +2,6 @@ const Appointment = require("../models/appointment.model");
 const Hospital = require("../models/hospital.model");
 const User = require("../models/user.model");
 const constants = require("../utils/constants");
-const User = require("../models/user.model");
 
 exports.takeAppointment = async (req, res) => {
 
