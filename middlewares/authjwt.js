@@ -119,17 +119,17 @@ isOwnerOfAppointment = async (req,res, next) =>{
             })
         }
 
-        console.log(user._id.valueOf());
+        // console.log(user._id.valueOf());
         if(user.userType == constants.userType.patient){
-            console.log(appointment.patientId, user);
-            if(appointment.patientId != user._id){
+            // console.log(appointment.patientId, user);
+            if(appointment.patientId.valueOf() != user._id.valueOf()){
                 return res.status(400).send({
                     message: "Only the OWNER has access to this"
                 })
             }
         }
         if(user.userType == constants.userType.doctor){
-            if(appointment.doctorId != user._id){
+            if(appointment.doctorId.valueOf() != user._id.valueOf()){
                 return res.status(400).send({
                     message: "Only the OWNER has access to this"
                 })
