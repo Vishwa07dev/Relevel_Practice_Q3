@@ -13,6 +13,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 require("./routes")(app);
+require("./routes/user.routes");
 
 /**
  * Setup the mongodb connection and create on ADMIN user
