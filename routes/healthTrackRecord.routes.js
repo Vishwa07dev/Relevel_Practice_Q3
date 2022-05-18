@@ -12,6 +12,6 @@ module.exports = (app)=>{
     
     app.get("/getfit/api/v1/healthTrackRecords", [authJwt.verifyToken, verifyTrackRecord.verifyGetRecords], healthTrackRecordController.getAllRecords);
     
-    app.get("/getfit/api/v1/healthTrackRecords/:id", [authJwt.verifyToken], verifyTrackRecord.isOwnerOfHealthRecord, healthTrackRecordController.getOneRecord);
+    app.get("/getfit/api/v1/healthTrackRecords/:id", [authJwt.verifyToken, verifyTrackRecord.isOwnerOfHealthRecord], healthTrackRecordController.getOneRecord);
     
 }
