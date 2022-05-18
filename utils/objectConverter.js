@@ -16,3 +16,16 @@ exports.userResponse = (users) => {
 
     return usersResponse
 };
+
+exports.appointmentResponse = (appointment) => {
+    return {
+        visit_Date: appointment.visit_Date,
+        time: appointment.time,
+        doctor_Id: appointment.doctor_Id,
+        hospitalId: appointment.hospitalId,
+        symptoms: appointment.symptoms,
+        id: appointment._id,
+        createdAt: appointment.createdAt,
+        updatedAt: appointment.updatedAt
+    }
+};
