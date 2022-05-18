@@ -5,12 +5,12 @@ const mongoose = require("mongoose");
 const appointmentSchema = new mongoose.Schema({
     
     userId :{
-        type : String,
-        required : true,
+        type :[mongoose.SchemaTypes.ObjectId],
+        ref :"User"
     },
     docotrId : {
-        type : String,
-        required: true
+        type : [mongoose.SchemaTypes.ObjectId],
+        ref : "User"
     },
     date :{
         type : Date,
