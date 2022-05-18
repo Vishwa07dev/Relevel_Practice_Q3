@@ -29,9 +29,9 @@ exports.bookAppointment = async (req, res) => {
 exports.deleteAppointment = async (req, res) => {
     
     const appointment_id = req.params.appnt_id;
-    const hospital_name = req.body.hosp_name;
+    const hospital_id = req.body.hosp_id;
     try{
-        const dlt_from_hospital = await Hospital.updateOne({"name": hosp_name}, {
+        const dlt_from_hospital = await Hospital.updateOne({"_id": hospital_id}, {
             $pullAll: {
                 "appointments_booked": { appointment_id }
             }            
