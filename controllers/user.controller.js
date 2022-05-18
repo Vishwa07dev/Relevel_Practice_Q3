@@ -16,7 +16,10 @@ exports.signup = async (req, res) => {
         address: req.body.address,
         userType: req.body.userType,
         password: bcrypt.hashSync(req.body.password, 8),
+        hospital_id: req.body.hospital_id
     }
+    // check for doctor signup
+    
     /**
      * Insert this user to DB
      */
