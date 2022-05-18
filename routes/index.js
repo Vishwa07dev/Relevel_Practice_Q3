@@ -5,4 +5,4 @@ const authRoutes = require('./auth.routes')
 module.exports = (app)=>{
     hospitalRoutes(app);
     authRoutes(app);
-}
+};

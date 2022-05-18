@@ -1,3 +1,3 @@
 module.exports = {
-    secret : "You cant see me"
+    secret : "Art is the lie that enables us to realise the truth."
 }

@@ -8,9 +8,9 @@
  const userSchema = new mongoose.Schema({
  
      /**
-      * name, userId, password, email, createdAt , updatedAt
-      * userType [ ADMIN | ENGINEER | CUSTOMER ] , 
-      * userStatus [ Pending | Approved | Rejected ]
+      * name, userId, password, address, createdAt , updatedAt, etc.
+      * userType [ PATIENT | DOCTOR | ADMIN], 
+      * 
       */
      name : {
          type : String,

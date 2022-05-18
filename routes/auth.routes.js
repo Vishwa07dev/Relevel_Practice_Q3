@@ -13,4 +13,4 @@ module.exports = (app)=>{
 
     //Sign POST 127.0.0.1:8080/getfit/api/v1/auth/signin
     app.post("/getfit/api/v1/auth/signin", authController.signin);
-}
+};

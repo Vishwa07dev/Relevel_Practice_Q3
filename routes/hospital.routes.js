@@ -4,19 +4,19 @@ const hospitalController = require("../controllers/hospital.controller")
 
 module.exports = (app)=>{
     
-
+    // add hospital
     app.post("/getfit/api/v1/hospitals",  hospitalController.addHospital);
 
-    // UPDATE CALL
+    // UPDATE 
     app.put("/getfit/api/v1/hospitals/:id", hospitalController.updateHospital);
 
-    // DELETE CALL
+    // DELETE 
     app.delete("/getfit/api/v1/hospitals/:id", hospitalController.deleteHospital);
     
-    // GET ALL COMPANIES
+    // GET all Hospitals
     app.get("/getfit/api/v1/hospitals", hospitalController.getAllHospital);
     
-    // GET SINGLE COMPANY
+    // GET Single hospital
     app.get("/getfit/api/v1/hospitals/:id", hospitalController.getOneHospital);
 
 }

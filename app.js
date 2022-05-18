@@ -32,9 +32,8 @@ mongoose.connect(dbConfig.DB_URL, async () => {
     console.log("admin created", user);
 })
 
-/**
- * Start the express server
- */
+// Start the express server.
+ 
 app.listen(serverConfig.PORT, () => {
     console.log("Application has started on the port ", serverConfig.PORT);
 })
