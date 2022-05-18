@@ -85,3 +85,29 @@ exports.updateHealthCard = async (req, res) => {
         })
     }
 }
+
+// how patient get health card
+exports.deleteHealthCard = async (req, res) => {
+    try {
+        const user = await User.findOne({ userId: req.userId });
+        const healthCard = await HealthCard.findOneAndDelete({ _id: user.healthCard_id })
+
+        if (!healthCard) {
+            return res.status(404).send({
+                message: "No health card avilable"
+            })
+        }
+
+        res.status(200).send({
+            message: "HealthCard deleted successfully."
+        });
+
+
+    }
+    catch (err) {
+        console.log(err.message)
+        res.status(500).send({
+            message: "Some Internal error."
+        })
+    }
+}
