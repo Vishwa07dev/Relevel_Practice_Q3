@@ -8,7 +8,7 @@ const objectConverter = require("../utils/objectConverter");
 
 
 /**
- * Controller for signup/registration
+ * signup/registration
  */
 exports.signup = async (req, res) => {
 
@@ -60,7 +60,7 @@ exports.signup = async (req, res) => {
 
 
 /**
- * Controller for signin
+ *  signin
  */
 exports.signin = async (req, res) => {
 
@@ -98,6 +98,6 @@ exports.signin = async (req, res) => {
         address: user.address,
         userType: user.userType,
         accessToken: token
-    })
+    });
 
 };

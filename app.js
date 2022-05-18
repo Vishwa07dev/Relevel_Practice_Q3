@@ -13,6 +13,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 require("./routes")(app);
+require("./routes/user.routes");
 
 /**
  * Setup the mongodb connection and create on ADMIN user
@@ -32,9 +33,8 @@ mongoose.connect(dbConfig.DB_URL, async () => {
     console.log("admin created", user);
 })
 
-/**
- * Start the express server
- */
+// Start the express server.
+ 
 app.listen(serverConfig.PORT, () => {
     console.log("Application has started on the port ", serverConfig.PORT);
 })

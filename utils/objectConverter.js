@@ -9,11 +9,10 @@ exports.userResponse = (users) => {
         usersResponse.push({
             name: user.name,
             userId: user.userId,
-            email: user.email,
             address: user.address,
             userType: user.userType
         });
     })
 
     return usersResponse
-}
+};
