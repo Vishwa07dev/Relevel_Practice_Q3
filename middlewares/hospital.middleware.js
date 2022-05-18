@@ -10,6 +10,7 @@ checkFields = async (req, res, next) => {
     next();
 
 };
+
 isHospital = async (req, res, next) => {
 
     const hospital = await Hospital.find({

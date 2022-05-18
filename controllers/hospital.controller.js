@@ -1,5 +1,5 @@
 const Hospital = require("../models/hospital.model"); 
-
+const objectConverter = require("../utils/objectConverter");
 exports.createHospital = async (req, res) => {
 
     const hospitalObjToBeStoredInDB = {
@@ -12,14 +12,7 @@ exports.createHospital = async (req, res) => {
 
     console.log("Hospital Created ", hospitalCreated);
 
-    /**
-     * Return the response
-     */
-    const hospitalCreationResponse  = {
-        name : hospitalCreated.name,
-        address : hospitalCreated.address,
-    }
-    return res.status(201).send(hospitalCreationResponse);
+    return res.status(201).send(objectConverter.hospitalCreationObject(hospitalCreated));
 
 } catch(err){
     console.error("Error while creating new hospital", err.message);
@@ -32,7 +25,7 @@ exports.createHospital = async (req, res) => {
 exports.updateHospital = async (req, res) => {
     try {
 
-    const hospital = await find({
+    const hospital = await Hospital.find({
         _id: req.params.id
     });
 
@@ -40,13 +33,12 @@ exports.updateHospital = async (req, res) => {
     hospital.address = req.body.name != undefined ? req.hospital.address: hospital.address;
     
     if(req.body.doctor_ids) {
-        hospital.req.doctor_ids.push(req.body.doctor_ids);
+        hospital.doctor_ids.push(req.body.doctor_ids);
     }
     
     const updatedHospitalDetails = await hospital.save();
 
     return res.status(200).send({
-        message: "Successfully updated hospital details",
         updatedHospitalDetails: updatedHospitalDetails
     });
     } catch (err) {
@@ -57,10 +49,22 @@ exports.updateHospital = async (req, res) => {
     }
 }
 
+exports.getHospitals = async (req, res) => {
+    try {
+        const hospitals = await Hospital.find({});
+
+    return res.status(200).send(hospitals);
+    } catch (err) {
+        console.log(err);
+        return res.status(500).send({
+            message: "Some internal error occurred while fetching hospital/s details."
+        });
+    }
+}  
+
 exports.getHospital = async (req, res) => {
     try {
-
-        const hospital = await find({
+        const hospital = await Hospital.find({
         _id: req.params.id
     });
 
@@ -74,3 +78,23 @@ exports.getHospital = async (req, res) => {
         });
     }
 }  
+
+exports.deleteHospital = async (req, res) => {
+
+    try {
+        await Hospital.findOneAndDelete({
+        _id: req.params.id
+    });
+
+    return res.status(200).send({
+        success: true,
+        message: "Hospital details were deleted"
+    })
+    } catch (err) {
+        console.log(err);
+        return res.status(500).send({
+            message: "Some internal error occurred while deleting hospital details."
+        });
+    }
+}  
+
