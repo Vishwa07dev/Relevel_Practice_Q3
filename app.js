@@ -4,7 +4,6 @@ const bodyParser = require("body-parser");
 const dbConfig = require("./configs/db.config");
 const serverConfig = require("./configs/server.config");
 const User = require("./models/user.model");
-const constants = require("./utils/constants");
 const bcrypt = require("bcryptjs");
 
 
@@ -24,20 +23,23 @@ mongoose.connect(dbConfig.DB_URL, () => {
 
 const init = async () => {
 
-     var user = await User.findOne({userId: "admin"});
+     console.log(`Checking if admin exist...`);
+
+     var user = await User.findOne({type: "admin"});
 
      if(user) {
+          console.log(`Admin already exists, returning...`)
           return;
      }
-     //Create the admin Role
+     console.log(`Creating admin role...`)
      user = await User.create({
           name: "Uday",
           userId: "admin",
-          email: "admin@email.com",
-          userType: "ADMIN",
+          type: "ADMIN",
+          address: "1Hacker Way, Menlo Park, California, United States",
           password: bcrypt.hashSync("password", 8)
      });  
-     console.log("Admin role created");
+     console.log("Admin role created", user);
 }
 
 
