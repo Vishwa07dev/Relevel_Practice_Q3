@@ -68,6 +68,7 @@ exports.signin = async (req, res) => {
     //Search the user if it exists 
     try {
         var user = await User.findOne({ userId: req.body.userId });
+        console.log(user);
     } catch (err) {
         console.log(err.message);
     }

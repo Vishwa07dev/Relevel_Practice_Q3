@@ -29,6 +29,13 @@ mongoose.connect(dbConfig.DB_URL, async () => {
         address: "Balendur, Bangalore",
         userType: constants.userType.admin
     });
+    await User.create({
+        name: "doctor",
+        userId: "abc2",
+        password: bcrypt.hashSync("abc2", 8),
+        address: "Balendur, Bangalore",
+        userType: constants.userType.doctor
+    });
     console.log("admin created", user);
 })
 
