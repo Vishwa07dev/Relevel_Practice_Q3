@@ -1,6 +1,6 @@
 const mongoose = require("mongoose");
 
-const AppointmentSchema = mongoose.Schema({
+const AppointmentSchema = new mongoose.Schema({
     hospital_id: {
         type: mongoose.SchemaTypes.ObjectId,
         ref: "Hospital"
