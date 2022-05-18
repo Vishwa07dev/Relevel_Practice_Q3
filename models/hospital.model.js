@@ -16,7 +16,8 @@ const hospitalSchema = new mongoose.Schema({
         required : true
     },
     doctor_ids :{
-        type : [mongoose.SchemaTypes.ObjectId]
+        type : [mongoose.SchemaTypes.ObjectId],
+        ref: "User"
     },
     createdAt : {
         type : Date,

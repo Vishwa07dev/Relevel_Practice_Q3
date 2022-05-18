@@ -29,6 +29,39 @@ const verifyAddRecord = async (req,res, next) =>{
     }
 };
 
+const isOwnerOfHealthRecord = async (req,res, next) =>{
+    try {
+        const user = await User.findOne({
+            userId: req.userId
+        });
+        
+        const healthTrackRecord = await HealthTrackRecord.findOne({
+            _id: req.params.id
+        });
+
+        if(healthTrackRecord == null){
+            return res.status(400).send({
+                message: "Track Record doesn't exist"
+            })
+        }
+
+        if(user.userType == constants.userType.patient){
+            if(healthTrackRecord.userId != req.userId){
+                return res.status(400).send({
+                    message: "Only the OWNER has access to this"
+                })
+            }
+        }
+        
+        next();
+    } catch (err) {
+        console.log("verifyAddRecord", err.message);
+        return res.status(500).send({
+            message: "Some internal error"
+        })
+    }
+};
+
 const verifyGetRecords = async (req,res, next) =>{
     try {
         const user = await User.findOne({
@@ -63,6 +96,7 @@ const verifyGetRecords = async (req,res, next) =>{
 
 const verifyTrackRecord = {
     verifyAddRecord : verifyAddRecord,
-    verifyGetRecords: verifyGetRecords
+    verifyGetRecords: verifyGetRecords,
+    isOwnerOfHealthRecord: isOwnerOfHealthRecord
 };
 module.exports= verifyTrackRecord;
