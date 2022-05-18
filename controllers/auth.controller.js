@@ -60,7 +60,7 @@ exports.signup = async (req, res) => {
 
 
 /**
- * Controller for signin
+ *  signin
  */
 exports.signin = async (req, res) => {
 
