@@ -30,6 +30,22 @@ mongoose.connect(dbConfig.DB_URL, async () => {
         userType: constants.userType.admin
     });
     console.log("admin created", user);
+ 
+    const doctor = await User.create({
+        name: "Rustom Pawri",
+        userId: "DrRustomPawri",
+        password: bcrypt.hashSync("docPawri", 8),
+        address: "Balendur, Bangalore",
+        userType: constants.userType.doctor
+    });
+    console.log("doctor created", doctor);
+
+    const hospital = await User.create({
+        name: "ABC Hospital",
+        address: "falana city, falana chowk, falana road, oppsite of falana shop, 500406",
+        password: bcrypt.hashSync("docPawri", 8),
+    });
+    console.log("hospital created", hospital);
 })
 
 /**
