@@ -29,6 +29,10 @@ const userSchema = new mongoose.Schema({
         type:[mongoose.SchemaTypes.ObjectId],
         ref: "Hospital"
     },
+    healthCard_id:{
+        type: mongoose.SchemaTypes.ObjectId,
+        ref: "HealthCard"
+    },
     createdAt:{
         type: Date,
         default:()=>{
