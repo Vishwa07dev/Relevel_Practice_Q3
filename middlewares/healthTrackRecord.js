@@ -1,4 +1,6 @@
 
+
+const jwt = require("jsonwebtoken"
 const config = require("../configs/auth.config");
 const User = require("../models/user.model");
 const HealthTrackRecord = require("../models/healthTrackRecord.model");
@@ -24,7 +26,11 @@ const verifyAddRecord = async (req,res, next) =>{
     } catch (err) {
         console.log("verifyAddRecord", err.message);
         return res.status(500).send({
+
             message: "Some internal server error"
+
+            message: "Some internal error"
+
         })
     }
 };
@@ -35,7 +41,11 @@ const verifyGetRecords = async (req,res, next) =>{
             userId: req.userId
         });
 
+
         if(user.userType == constants.userTypes.doctor || user.userType == constants.userTypes.admin){
+
+        if(user.userType == constants.userType.doctor || user.userType == constants.userType.admin){
+
             if(!req.query.patientId || req.query.patientId == ""){
                 return res.status(400).send({
                     message: "Patient Id is required to view track records"

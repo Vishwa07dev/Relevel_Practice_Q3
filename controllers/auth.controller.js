@@ -31,7 +31,22 @@ exports.signup = async(req, res) =>{
                 message: "HospitalId id needed"
             })
         }
-    }
+    
+        
+        //How the user sign up will happen
+        const userObjToBeStoredInDB = {
+            name: req.body.name,
+            userId: req.body.userId,
+            password: bcrypt.hashSync(req.body.password, 8),
+            address: req.body.address,
+            userType: req.body.userType,
+            hospitalId: req.body.hospitalId,
+            healthTrackRecords: []
+        }
+        /**
+         * Insert this new user to the db
+         */
+
 
     // How the user signup will happen?
 
