@@ -4,7 +4,7 @@ exports.providePrescription = async (req, res) => {
 
     /**
      * Only a DOCTOR can perform this task
-     * ADMIN can also perform but not without doctor's check
+     * 
      */
 
     const new_prescription = {
