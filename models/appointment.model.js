@@ -9,26 +9,22 @@ const AppointmentSchema = new mongoose.Schema({
         type: mongoose.SchemaTypes.ObjectId,
         ref: "Hospital"
     },
-    hospital_name: {
-        type: String,
-        required: true
-    },
-    date_alloted: {
-        type: String  // maybe like 19th May 2022 - 1:00 P.M.
-    },
     attending_doctor: {
         type: mongoose.SchemaTypes.ObjectId,
         ref: "User"
     },
+    date_alloted: {
+        type: String  // maybe like 19th May 2022 - 1:00 P.M.
+    },
     doctor_backgound: {
-        type: String    // maybe like "the doctor is very good at tresting ..."
-    },                  // and has more than 4 yrs of expr in this subject/ailment treatment
+        type: String    // maybe like "the doctor is very good at treating ..."
+    },                  // and has more than 4 yrs of expr in this subject.
     patient_symptoms: {
         type: String,
         required: true
     },
-    prescription: {
-        type: String
+    prescription_id: {
+        type: mongoose.SchemaTypes.ObjectId
     },
     post_med_visit_required: {    // post medication period
         type: Boolean,
