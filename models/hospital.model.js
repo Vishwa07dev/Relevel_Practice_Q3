@@ -18,6 +18,10 @@ const hospitalSchema = new mongoose.Schema({
     doctor_ids :{
         type : [mongoose.SchemaTypes.ObjectId]
     },
+    appointments_booked: {
+        type: [mongoose.SchemaTypes.ObjectId],   //for storing appointments booked
+        ref: "Appointment"
+    },
     createdAt : {
         type : Date,
         immutable : true,
