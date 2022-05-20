@@ -2,6 +2,7 @@ const User = require("../models/user.model");
 const Appointment = require("../models/appointment.model");
 const Prescription = require("../models/prescription.model");
 const constants = require("../utils/constants");
+const mongoose = require("mongoose");
 
 /**
  * Validate Create Prescription
