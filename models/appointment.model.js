@@ -1,21 +1,27 @@
 const mongoose = require("mongoose");
+const constants = require("../utils/constants");
+
 
 const appointmentSchema = new mongoose.Schema({
 
-    visit_Date: {
+    appointmentDate: {
         type: Date,
         required: true
     },
-    time: {
+    appointmentTime: {
         type: String,
         required: true
     },
-    doctor_id: {
-        type : [mongoose.SchemaTypes.ObjectId] 
+    userId : {
+        type: [mongoose.SchemaTypes.ObjectId],
+        ref: "User"
     },
-    hospitalId : {
-        type : [mongoose.SchemaTypes.ObjectId],
-        ref : "Hospital"
+    doctor_id: {
+        type: [mongoose.SchemaTypes.ObjectId]
+    },
+    hospitalId: {
+        type: [mongoose.SchemaTypes.ObjectId],
+        ref: "Hospital"
     },
     symptoms: {
         type: String,
@@ -26,15 +32,18 @@ const appointmentSchema = new mongoose.Schema({
         immutable: true,
         default: ()=>{
             return Date.now();
-        },
+        }
     },
     updatedAt: {
-            type: Date,
-            default: ()=>{
-           return Date.now();
+        type: Date,
+        default: ()=>{
+            return Date.now();
         }
-    }
-
-
+    },
+    status: {
+        type: String,
+        default: constants.appointmentStatus.pending,
+    },
 });
+
 module.exports = mongoose.model("Appointment", appointmentSchema);

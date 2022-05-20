@@ -13,7 +13,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
 require("./routes")(app);
-require("./routes/user.routes");
+
 
 /**
  * Setup the mongodb connection and create on ADMIN user
@@ -28,7 +28,7 @@ mongoose.connect(dbConfig.DB_URL, async () => {
         userId: "admin",
         password: bcrypt.hashSync("Welcome1", 8),
         address: "Balendur, Bangalore",
-        userType: constants.userType.admin
+        userType: constants.userTypes.admin
     });
     console.log("admin created", user);
 })

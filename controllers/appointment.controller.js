@@ -1,94 +1,46 @@
 const Appointment = require("../models/appointment.model");
-const objectConverter = require("../utils/objectConverter");
-const constant = require("../utils/constants");
 
-exports.createAppointment = async(req, res) => {
-    
+exports.createAppointment = async(req, res)=>{
     const appointmentObj = {
-        visit_Date : req.body.visit_Date,
-        time: req.body.time,
-        symptoms: req.body.symptoms
+        appointmentDate : req.body.appointmentDate,
+        appointmentTime : req.body.appointmentTime,
+        symptoms: req.body.symptoms,
+        userId: [],
+        doctor_id: [],
+        hospitalId: []
     }
-    try{
-    const appointment = await Appointment.create(appointmentObj);
-    console.log(appointment);
-
-    if (appointment) {
-        const user = await User.findOne({
-            userId: req.userId
-        })
-        user.appointmentCreated.push(appointment._id);
-        await user.save();
-}
-return res.status(201).send(objectConverter.appointmentResponse(appointment));
-
-} catch (err) {
-    console.log(err.message);
-    return res.status(500).send({
-        message: "Some internal error"
-    })
-}
-
-};
-//write logic for getAllAppointment 
-
-exports.updateAppointment = async (req, res) => {
 
     try{
-        const appointment = await Appointment.findOne({
-            _id: req.params.id
-        });
+        const appointment = await Appointment.create(appointmentObj);
+        console.log(appointment);
 
-        if (appointment == null) {
-            return res.status(400).send({
-                message: "appointment doesn't exist"
-            })
-        }
-
-        appointment.visit_Date = req.body.visit_Date != undefined ? req.body.visit_Date : appointment.visit_Date;
-        appointment.time = req.body.time != undefined ? req.body.time : appointment.time;
-        appointment.symptoms = req.body.symptoms != undefined ? req.body.symptoms : appointment.symptoms;
-    
-        const updatedAppointment = await appointment.save();
-
-        return res.status(200).send(updatedAppointment);
+        return res.status(201).send(appointment);
     }catch(err){
         console.log(err.message);
         return res.status(500).send({
-            message: "Some internal error"
+            message: "some internal server error"
         })
     }
-}
+    
+};
 
-exports.getAllRecords = async (req, res) => {
+exports.getAllAppointment = async(req, res)=>{
     try {
-        const user = await User.findOne({
-            userId: req.userId
-        });
-
-        let queryObj = {};
-        
-        if(user.userType == constants.userType.doctor || user.userType == constants.userType.admin){
-            queryObj.userId = req.query.patientId;
-        }else{
-            queryObj.userId = req.userId;
-        }
-
-        const appointment = await Appointment.find(queryObj);
-
-        return res.status(200).send(appointment);
+        const appointment = await Appointment.find();
+        return res.status(200).send(appointment)
     } catch (err) {
         console.log(err.message);
         return res.status(500).send({
-            message: "Some internal error"
+            message: "Some internal server error"
         })
     }
-}
+    
+};
 
-exports.getOneAppointment= async (req, res) => {
+exports.getOneAppointment = async (req, res) => {
     try{
             
-        const appointment= await Appointment.findOne({
+        const appointment = await Appointment.findOne({
             _id: req.params.id
         });
 
@@ -96,9 +48,44 @@ exports.getOneAppointment= async (req, res) => {
     }catch(err){
         console.log(err.message);
         return res.status(500).send({
-            message: "Some internal error"
+            message: "Some internal server error"
         })
     }
+};
+
+exports.updateAppointment = async (req, res) => {
+
+    try{
+        const appointment = await Appointment.findOne({
+            _id: req.params.id
+        });
+    
+        console.log(appointment);
+    
+        if (appointment == null) {
+            return res.status(400).send({
+                message: "Appointment doesn't exist"
+            })
+        }
+    
+        appointment.appointmentDate = req.body.appointmentDate != undefined ? req.body.appointmentDate : appointment.appointmentDate;
+        appointment.appointmentTime = req.body.appointmentTime != undefined ? req.body.appointmentTime : appointment.appointmentTime;
+        appointment.symptoms = req.body.symptoms != undefined ? req.body.symptoms: appointment.symptoms;
+        
+    
+    
+        const updatedAppointment = await appointment.save();
+    
+    
+    
+        return res.status(200).send(updatedAppointment);
+    }catch(err){
+        console.log(err.message);
+        return res.status(500).send({
+            message: "Some internal server error"
+        })
+    }
+    
 }
 
 exports.deleteAppointment = async (req, res) => {
@@ -106,26 +93,14 @@ exports.deleteAppointment = async (req, res) => {
         const appointment = await Appointment.deleteOne({
             _id: req.params.id
         });    
-
-        if(appointment == null) {
-            return res.status(400).send({
-                message: "appointment doesn't exist"
-            })
-        }
-
-        const user = await User.findOne({
-            userId: req.userId
+        res.status(200).send({
+            message : "succesfully deleted appointment."
         });
-        
-      
-
-        const updatedAppointment= await user.save();
-        res.status(200).send(updatedAppointment);
-
     } catch (error) {
         console.log(err.message);
         return res.status(500).send({
-            message: "Some internal error"
+            message: "Some internal server error"
         })
     }
-}
+};
+

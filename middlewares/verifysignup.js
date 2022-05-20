@@ -1,53 +1,46 @@
 const User = require("../models/user.model");
-const constant = require("../utils/constants");
+const constants = require("../utils/constants");
 
-
-validateSignupRequest = async (req,res, next) =>{
-    //Validate if userName exists
+validateSignupRequest = async(req, res)=>{
+    //Validate if username exists
     if(!req.body.name){
         return res.status(400).send({
-            message : "Failed !  User name is not provided"
+            message: "Failed! User name is not provided. "
         })
     }
 
-    //Validate if the userId exists
+    //validate if the userid exists.
+
     if(!req.body.userId){
         return res.status(400).send({
-            message : "Failed !  User Id is not provided"
+            message: "Failed! User id is not provided"
         })
     }
-
     /**
-     * Valiate if the userIs is already not preset
+     * Validate if the userId is already not present
      */
-    const user = await User.findOne({userId : req.body.userId});
+    const user = await User.findOne({userId: req.body.userId});
 
     if(user!=null){
         return res.status(400).send({
-            message : "Failed !  User Id already exist"
+            message: "Failed! UserId already exist. "
         })
     }
-
     if(!req.body.password){
         return res.status(400).send({
-            message : "Failed !  User password is not provided"
+            message: "Failed! password is not provided. "
         })
     }
-
-   
-    const userType = req.body.userType ;
-    const userTypes = [ constant.userTypes.patient , constant.userTypes.admin, constant.userTypes.doctor]
+    const userType = req.body.userType;
+    const userTypes = [constants.userTypes.patient, constants.userTypes.admin, constants.userTypes.doctor];
     if(userType && !userTypes.includes(userType)){
         return res.status(400).send({
-            message : "Failed !  User type is not correctly provided"
+            message: "Failed! userType is not correctly provided. "
         })
     }
-    
-  
-    next(); // give the controll to the controller
-
-}
+    next();
+};
 
 module.exports = {
-    validateSignUpRequest : validateSignupRequest
+    validateSignupRequest : this.validateSignupRequest
 };
