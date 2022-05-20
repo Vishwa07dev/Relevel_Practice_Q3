@@ -16,7 +16,8 @@ const hospitalSchema = new mongoose.Schema({
         required : true
     },
     doctor_ids :{
-        type : [mongoose.SchemaTypes.ObjectId]
+        type : [mongoose.SchemaTypes.ObjectId],
+        ref : "Users"
     },
     createdAt : {
         type : Date,
@@ -34,4 +35,4 @@ const hospitalSchema = new mongoose.Schema({
 
 });
 
-module.exports = mongoose.model("Hospital", hospitalSchema);
+module.exports = mongoose.model("Hospitals", hospitalSchema);

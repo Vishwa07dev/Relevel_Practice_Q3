@@ -7,5 +7,10 @@ module.exports = {
         patient : "PATIENT",
         admin : "ADMIN",
         doctor : "DOCTOR"
+    },
+    appointmentStatus : {
+        accepted : "ACCEPTED",
+        declined : "DECLINED",
+        inprogress : "INPROGRESS"
     }
 };

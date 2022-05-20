@@ -41,14 +41,25 @@ exports.signup = async (req, res) => {
             address: req.body.address,
             userType: req.body.userType,
             hospitalId: req.body.hospitalId,
-            healthTrackRecords: []
+            healthTrackRecords: [],
+            appointments: []
         }
         /**
          * Insert this new user to the db
          */
 
         const user = await User.create(userObjToBeStoredInDB);
+        
+        // After adding doctor we are pusing the doctor id into the hospital model  
 
+        if(user.userType == constants.userType.doctor){
+            const hospital = await Hospital.findOne({
+                _id: req.body.hospitalId
+            });
+            hospital.doctor_ids.push(user._id);
+            await hospital.save();
+        }
+        
         res.status(201).send(objectConverter.userResponse([user]));
     } catch (err) {
         console.error("Error while creating new user", err.message);
@@ -90,7 +101,7 @@ exports.signin = async (req, res) => {
     //** Successfull login */
     //I need to generate access token now
     const token = jwt.sign({ id: user.userId }, config.secret, {
-        expiresIn: 600
+        expiresIn: 60000000000
     });
 
     //Send the response back

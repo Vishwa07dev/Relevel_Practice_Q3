@@ -1,17 +1,18 @@
-
 const appointmentController = require("../controllers/appointment.controller")
+const { authJwt, verifyTrackRecord } = require("../middlewares");
 
 module.exports = (app)=>{
     
-    //  POST 127.0.0.1:8080/getfit/api/v1/appointment
-    app.post("/getfit/api/v1/appointment", appointmentController.addAppointment);
+    //  POST 127.0.0.1:8081/getfit/api/v1/appointments
+    app.post("/getfit/api/v1/appointments",[authJwt.verifyToken], appointmentController.addAppointment);
 
-    // GET 127.0.0.1:8080/getfit/api/v1/appointment
-    app.get("/getfit/api/v1/appointment", appointmentController.getAllAppointment);
+    // GET 127.0.0.1:8081/getfit/api/v1/appointments
+    app.get("/getfit/api/v1/appointments",[authJwt.verifyToken] ,appointmentController.getAllAppointment);
 
-    // PUT 127.0.0.1:8080/getfit/api/v1/appointment/:id
-    app.put("/getfit/api/v1/appointment/:id", appointmentController.updateAppointment);
+    // GET 127.0.0.1:8081/getfit/api/v1/appointments/:id
+    app.get("/getfit/api/v1/appointments/:id", [authJwt.verifyToken], appointmentController.getOneAppointment)
 
-    // DELETE 127.0.0.1:8080/getfit/api/v1/appointment/:id
-    app.delete("/getfit/api/v1/appointment/:id", appointmentController.deleteAppointment);
+    // PUT 127.0.0.1:8081/getfit/api/v1/appointments/:id
+    app.put("/getfit/api/v1/appointments/:id", [authJwt.verifyToken],appointmentController.updateAppointment);
+
 }
