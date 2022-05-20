@@ -46,6 +46,14 @@ const verifyCreatePrescription = async (req,res, next) =>{
             })
         }
 
+        if(user.userType == constants.userType.doctor){
+            if(appointment.doctorId.valueOf() != user._id.valueOf()){
+                return res.status(400).send({
+                    message: "Doctor Id is not valid for this appointment"
+                })
+            }
+        }
+
         // if prescription already available, infrom to update
         if(appointment.prescription){
             return res.status(200).send({
@@ -96,6 +104,19 @@ const verifyValidPrescriptionForChange = async (req,res, next) =>{
                 message: "Invalid Prescription Id"
             })
         }
+
+        const appointment = await Appointment.findOne({
+            prescription: prescription._id
+        });
+
+        if(user.userType == constants.userType.doctor){
+            if(appointment.doctorId.valueOf() != user._id.valueOf()){
+                return res.status(400).send({
+                    message: "Doctor Id is not valid for this appointment"
+                })
+            }
+        }
+
         
         next();
     } catch (err) {
