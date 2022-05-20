@@ -14,6 +14,7 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 require("./routes")(app);
 
+
 /**
  * Setup the mongodb connection and create on ADMIN user
  */
@@ -27,14 +28,13 @@ mongoose.connect(dbConfig.DB_URL, async () => {
         userId: "admin",
         password: bcrypt.hashSync("Welcome1", 8),
         address: "Balendur, Bangalore",
-        userType: constants.userType.admin
+        userType: constants.userTypes.admin
     });
     console.log("admin created", user);
 })
 
-/**
- * Start the express server
- */
+// Start the express server.
+ 
 app.listen(serverConfig.PORT, () => {
     console.log("Application has started on the port ", serverConfig.PORT);
 })

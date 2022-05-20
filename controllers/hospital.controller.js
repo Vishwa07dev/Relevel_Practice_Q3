@@ -1,27 +1,24 @@
 const Hospital = require("../models/hospital.model");
 
-exports.addHospital = async (req, res) => {
+
+exports.addHospital = async(req, res)=>{
 
     const hospitalObj = {
-        name: req.body.name,
+        name : req.body.name,
         address: req.body.address,
-        doctor_ids: []
+        doctor_id: []
     }
-
-    try {
+    try{
         const hospital = await Hospital.create(hospitalObj);
-        console.log(hospital)
-
+        console.log(hospital);
         return res.status(201).send(hospital);
-
-    } catch (err) {
+    }catch(err){
         console.log(err.message);
         return res.status(500).send({
-            message: "Some internal error"
+            message: "Some internal error. "
         })
     }
-
-}
+};
 
 exports.getAllHospital = async (req, res) => {
     try {
@@ -69,7 +66,7 @@ exports.updateHospital = async (req, res) => {
     
         hospital.name = req.body.name != undefined ? req.body.name : hospital.name;
         hospital.address = req.body.address != undefined ? req.body.address : hospital.address;
-        //hospital.doctor_ids = req.body.doctor_ids != undefined ? req.body.doctor_ids : hospital.doctor_ids;
+        
     
     
         const updatedHospital = await hospital.save();
