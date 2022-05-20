@@ -59,3 +59,5 @@
  });
  
  module.exports = mongoose.model("User", userSchema);
+
+ // https://docs.google.com/document/d/1zk-0BbCL-kTit0Vm8jl_SsNT_CqvwZlO/edit#heading=h.jjlws8x1c1cq

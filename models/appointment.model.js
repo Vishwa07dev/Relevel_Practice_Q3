@@ -1,28 +1,43 @@
 const mongoose = require("mongoose");
 
+
 const appointmentSchema = new mongoose.Schema({
 
+// hospital, doctId, appointment, patientId, timing, createAt,updatedAt
 
-doctorName : {
+hospitalId : {
     type : String,
     required : true
 },
-
-doctorId : {
+doctId : {
     type : String,
-    required : true,
-    unique : true
+    required : true
+}, 
+appointmentDate : {
+    type : Date,
+    required : true
 },
-typeOfDoctor : {
+timing : {
     type : String,
     required : true
 },
- appointmentDate : {
-     type : Date & Time,
-     required : true
- }
-
- 
- module.exports = mongoose.model("Appointment", appointmentSchema )
-
+patientId : {
+    type : String,
+    required : true
+},
+createAt : {
+    type : Date,
+    immutable : true,
+    default : () => {
+        return Date.now();
+    }
+},
+updatedAt : {
+    type : Date,
+default : ()=> {
+    return Date.now();
+}
+}
+   
 })
+module.exports = mongoose.model("Appointment", appointmentSchema )
