@@ -54,8 +54,15 @@
      healthTrackRecords: {
         type : [mongoose.SchemaTypes.ObjectId],
         ref : "HealthTrackRecord"
-     }
- 
+     },
+     appointments_booked: {
+         type: [mongoose.SchemaTypes.ObjectId],
+         ref: "Appointment"
+     },
+     appointments_attended: {
+         type: [mongoose.SchemaTypes.ObjectId],
+         ref: "Appointment"
+     },
  });
  
  module.exports = mongoose.model("User", userSchema);

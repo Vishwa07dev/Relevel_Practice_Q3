@@ -7,5 +7,9 @@ module.exports = {
         patient : "PATIENT",
         admin : "ADMIN",
         doctor : "DOCTOR"
+    },
+    appointment_status: {
+        confirmed: "CONFIRMED",
+        cancelled: "CANCELLED"
     }
 };

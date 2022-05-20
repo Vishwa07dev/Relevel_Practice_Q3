@@ -83,9 +83,30 @@ isPatient = async (req,res, next) =>{
     }
 }
 
+isDoctor = async (req, res, next) => {
+    try{
+        const user = await User.findOne({"_id": req.userId});
+
+        if(user && user.userType == constants.userType.doctor) {
+            next();
+        }else {
+            res.status(403).send({
+            message: "Requires DOCTOR role"
+            });
+        }
+    } catch(err) {
+        console.log("Error in auth middleware:", err.message);
+        return res.status(500).send({
+            message: err.message
+        });
+    }
+}
+
+
 const authJwt = {
     verifyToken : verifyToken,
     isAdmin : isAdmin,
-    isPatient: isPatient
+    isPatient: isPatient,
+    isDoctor: isDoctor
 };
 module.exports= authJwt;

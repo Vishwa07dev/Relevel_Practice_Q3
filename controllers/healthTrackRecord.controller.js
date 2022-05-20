@@ -27,7 +27,7 @@ exports.addRecord = async (req, res) => {
             user.healthTrackRecords.push(healthTrackRecord._id);
             const updatedUser = await user.save();
 
-            return res.status(201).send(updatedUser);
+            return res.status(201).send(healthTrackRecord);
         }else{
             throw new Error("Failed to create Health Track Record");
         }
