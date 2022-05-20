@@ -19,9 +19,6 @@ exports.createPrescription = async (req, res) => {
 
         // prepare prescription object
         const prescriptionObj = {
-            patientId: appointment.patientId,
-            hospitalId: appointment.hospitalId,
-            doctorId: appointment.doctorId,
             appointmentId: req.body.appointmentId,
             medicines: req.body.medicines,
             tests: req.body.tests,

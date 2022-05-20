@@ -138,9 +138,13 @@ const isOwnerOfPrescriptionOrAdmin = async (req,res, next) =>{
             _id: req.params.id
         });
 
+        const appointment = await Appointment.findOne({
+            _id: prescription.appointmentId
+        });
+
         if(user.userType != constants.userType.admin){
             // Check Valid OWNER
-            if(prescription.patientId.valueOf() != user._id.valueOf() && prescription.doctorId.valueOf() != user._id.valueOf()){
+            if(appointment.patientId.valueOf() != user._id.valueOf() && appointment.doctorId.valueOf() != user._id.valueOf()){
                 return res.status(400).send({
                     message: "Only the OWNER/ADMIN has access to this operation"
                 })

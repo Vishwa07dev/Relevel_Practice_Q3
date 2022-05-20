@@ -20,22 +20,10 @@ const medicalSchema = {
 
 const prescriptionSchema = new mongoose.Schema({
     /**
-     * patientId, hospitalId, doctorId, comments
+     * appointmentId, comments
      * medicines, tests - Array
      * status [ ADMIN | PATIENT | DOCTOR ]
      */
-    patientId : {
-        type : mongoose.SchemaTypes.ObjectId,
-        ref: "User"
-    },
-    hospitalId: {
-        type : mongoose.SchemaTypes.ObjectId,
-        ref: "Hospital"
-    },
-    doctorId : {
-        type : mongoose.SchemaTypes.ObjectId,
-        ref: "User"
-    },
     appointmentId: {
         type : mongoose.SchemaTypes.ObjectId,
         ref: "Appointment"
