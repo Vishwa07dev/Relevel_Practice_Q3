@@ -13,13 +13,19 @@ exports.bookAppointment = async (req, res) => {
     try{
         const booked_appointment = await Appointment.create({ new_appointment });
         
-        const added_appointment = await Hospital.findOneAndUpdate({"_id": hospital_id}, {
+        const updated_hospital = await Hospital.findOneAndUpdate({"_id": hospital_id}, {
             $push: {
                 "appointments_booked": booked_appointment._id
             }
         });
         
-        const update_doctor = await User.findOneAndUpdate({"_id": }, {});
+        const updated_doctor = await User.findOneAndUpdate({"_id": doctor_id}, {
+            $push: { "appointments_attended": booked_appointment._id }
+        });
+
+        const updated_patient = await User.findOneAndUpdate({"_id": patient_id}, {
+            $push: { "appointments_booked": booked_appointment._id }
+        });
         
         return res.status(201).send({
             message: "Appointment booked",
@@ -35,9 +41,23 @@ exports.bookAppointment = async (req, res) => {
 exports.cancelAppointment = async (req, res) => {
     
     const appointment_id = req.params.appnt_id;
-    const hospital_id = req.body.hosp_id;
+    const hospital_id = req.body.hospital_id;
+    const doctor_id = req.body.doctor_id;
+    const patient_id = req.body.patient_id;
     try{
-        const dlt_from_hospital = await Hospital.updateOne({"_id": hospital_id}, {
+        const dlt_from_hospital_rec = await Hospital.updateOne({"_id": hospital_id}, {
+            $pullAll: {
+                "appointments_booked": { appointment_id }
+            }            
+        });
+
+        const dlt_from_doctor_rec = await User.updateOne({"_id": doctor_id}, {
+            $pullAll: {
+                "appointments_attended": { appointment_id }
+            }            
+        });
+
+        const dlt_from_patient_rec = await User.updateOne({"_id": patient_id}, {
             $pullAll: {
                 "appointments_booked": { appointment_id }
             }            
@@ -46,11 +66,11 @@ exports.cancelAppointment = async (req, res) => {
         const appointment_deleted = await Appointment.findOneAndDelete({"_id": appointment_id});
 
         return res.status(200).send({
-            message: "Deleted appointment successfully",
+            message: "Cancelled appointment successfully",
             output: [dlt_from_hospital, appointment_deleted]
         });
     } catch(err) {
-        console.log("Error while deleting appnt: ", err.message);
+        console.log("Error while cancelling appnt: ", err.message);
         return res.status(500).send({
             message: err.message
         })
