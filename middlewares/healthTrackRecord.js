@@ -1,5 +1,3 @@
-const jwt = require("jsonwebtoken");
-const config = require("../configs/auth.config");
 const User = require("../models/user.model");
 const HealthTrackRecord = require("../models/healthTrackRecord.model");
 const constants = require("../utils/constants");

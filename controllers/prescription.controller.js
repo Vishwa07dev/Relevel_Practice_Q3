@@ -1,6 +1,5 @@
 const Prescription = require("../models/prescription.model");
 const Appointment = require("../models/appointment.model");
-const Hospital = require("../models/hospital.model");
 const User = require("../models/user.model");
 const constants = require("../utils/constants");
 

@@ -1,10 +1,7 @@
 const jwt = require("jsonwebtoken");
 const config = require("../configs/auth.config");
 const User = require("../models/user.model");
-const Appointment = require("../models/appointment.model");
 const constants = require("../utils/constants");
-const mongoose = require("mongoose");
-
 
 /**
  * Authentication

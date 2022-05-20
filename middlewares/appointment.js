@@ -1,10 +1,7 @@
-const jwt = require("jsonwebtoken");
-const config = require("../configs/auth.config");
 const User = require("../models/user.model");
-const HealthTrackRecord = require("../models/healthTrackRecord.model");
 const Appointment = require("../models/appointment.model");
-const Prescription = require("../models/prescription.model");
 const constants = require("../utils/constants");
+const mongoose = require("mongoose");
 
 isOwnerOfAppointmentOrAdmin = async (req,res, next) =>{
     try {
