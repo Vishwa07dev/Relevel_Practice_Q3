@@ -5,7 +5,7 @@ exports.addHospital = async (req, res) => {
     const hospitalObj = {
         name: req.body.name,
         address: req.body.address,
-        doctor_ids: []
+        doctorId: []
     }
 
     try {

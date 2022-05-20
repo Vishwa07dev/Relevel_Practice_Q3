@@ -6,6 +6,7 @@ const User = require("./models/user.model");
 const serverConfig = require("./configs/server.config");
 const constants = require("./utils/constants");
 const bcrypt = require("bcryptjs");
+const Hospital = require("./models/hospital.model");
 
 
 const app = express();
@@ -21,7 +22,7 @@ mongoose.connect(dbConfig.DB_URL, async () => {
     console.log("MongoDB connected");
 
     await User.collection.drop();// Since this a dev setup
-
+    await Hospital.collection.drop();
     const user = await User.create({
         name: "Vishwa Mohan",
         userId: "admin",

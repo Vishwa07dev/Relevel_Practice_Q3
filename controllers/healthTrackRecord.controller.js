@@ -27,7 +27,7 @@ exports.addRecord = async (req, res) => {
             user.healthTrackRecords.push(healthTrackRecord._id);
             const updatedUser = await user.save();
 
-            return res.status(201).send(updatedUser);
+            return res.status(201).send(healthTrackRecord);
         }else{
             throw new Error("Failed to create Health Track Record");
         }
@@ -114,7 +114,7 @@ exports.getOneRecord = async (req, res) => {
 
 exports.deleteRecord = async (req, res) => {
     try {
-        const healthTrackRecord = await HealthTrackRecord.deleteOne({
+        const healthTrackRecord = await HealthTrackRecord.findOne({
             _id: req.params.id
         });    
 
@@ -124,8 +124,13 @@ exports.deleteRecord = async (req, res) => {
             })
         }
 
+        const deletedRecord = await HealthTrackRecord.deleteOne({
+            _id: req.params.id
+        });
+
+
         const user = await User.findOne({
-            userId: req.userId
+            userId: healthTrackRecord.userId
         });
         
         let removableIndex = user.healthTrackRecords.indexOf(healthTrackRecord._id);
