@@ -1,20 +1,26 @@
 const Appointment = require('../models/appointment.model');
 const Hospital = require('../models/hospital.model');
+const User = require('../models/user.model');
 
 exports.bookAppointment = async (req, res) => {
     
     const new_appointment = {
         hospital_id: req.body.hospital_id,
-        hospital_name: req.body.hospital_name,
+        patient_id: req.body.patient_id,
+        doctor_id: req.body.doctor_id,
         patient_symptoms: req.body.symptoms
     };
     try{
         const booked_appointment = await Appointment.create({ new_appointment });
-        const added_appointment = await Hospital.findOneAndUpdate({"name": hospital_name}, {
+        
+        const added_appointment = await Hospital.findOneAndUpdate({"_id": hospital_id}, {
             $push: {
                 "appointments_booked": booked_appointment._id
             }
         });
+        
+        const update_doctor = await User.findOneAndUpdate({"_id": }, {});
+        
         return res.status(201).send({
             message: "Appointment booked",
             output: booked_appointment
@@ -26,7 +32,7 @@ exports.bookAppointment = async (req, res) => {
     }
 }
 
-exports.deleteAppointment = async (req, res) => {
+exports.cancelAppointment = async (req, res) => {
     
     const appointment_id = req.params.appnt_id;
     const hospital_id = req.body.hosp_id;
