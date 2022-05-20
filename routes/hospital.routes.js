@@ -1,6 +1,12 @@
 
-const hospitalController = require("../controllers/hospital.controller")
+/**
+ * This file will act as the route for authentication and authorzation
+ * 
+ */
 
+// define the routes - REST endpoints for Hospital
+
+const hospitalController = require("../controllers/hospital.controller")
 
 module.exports = (app)=>{
     

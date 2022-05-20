@@ -3,7 +3,6 @@ const config = require("../configs/auth.config");
 const User = require("../models/user.model");
 const constants = require("../utils/constants");
 
-
 /**
  * Authentication
  * 
@@ -83,9 +82,29 @@ isPatient = async (req,res, next) =>{
     }
 }
 
+isDoctor = async (req,res, next) =>{
+
+    /**
+     * Fetcht user from the DB using the userId
+     */
+    const user = await User.findOne({userId : req.userId});
+
+    /**
+     * Check what is the user type
+     */
+    if(user && user.userType == constants.userType.doctor){
+        next();
+    }else{
+        res.status(403).send({
+            message: "Requires DOCTOR role"
+        })
+    }
+}
+
 const authJwt = {
     verifyToken : verifyToken,
     isAdmin : isAdmin,
-    isPatient: isPatient
+    isPatient: isPatient,
+    isDoctor: isDoctor
 };
 module.exports= authJwt;

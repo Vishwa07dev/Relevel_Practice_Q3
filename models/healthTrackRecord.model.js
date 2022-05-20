@@ -1,8 +1,9 @@
-
 const mongoose = require("mongoose");
 
-
 const healthTrackRecordSchema = new mongoose.Schema({
+    /**
+     * height, weight, bloodPressure, sugerLevel, identifiedSymptoms, userId
+     */
     height : {
         type : String,
         required : true

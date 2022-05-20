@@ -1,7 +1,11 @@
 const Hospital = require("../models/hospital.model");
 
+/**
+ * Add Hospital
+ */
 exports.addHospital = async (req, res) => {
 
+    // prepare hospital object to store inside database
     const hospitalObj = {
         name: req.body.name,
         address: req.body.address,
@@ -9,9 +13,11 @@ exports.addHospital = async (req, res) => {
     }
 
     try {
+        // insert hospital object into database
         const hospital = await Hospital.create(hospitalObj);
-        console.log(hospital)
+        // console.log(hospital)
 
+        // return created hospital
         return res.status(201).send(hospital);
 
     } catch (err) {
@@ -23,9 +29,15 @@ exports.addHospital = async (req, res) => {
 
 }
 
+/**
+ * GET all hospitals based
+ */
 exports.getAllHospital = async (req, res) => {
     try {
+        // find all hospitals
         const hospital = await Hospital.find();
+        
+        // return found hospital
         return res.status(200).send(hospital)
     } catch (err) {
         console.log(err.message);
@@ -36,13 +48,17 @@ exports.getAllHospital = async (req, res) => {
     
 }
 
+/**
+ * GET Single hospital based on its id
+ */
 exports.getOneHospital = async (req, res) => {
     try{
-            
+        // get hospital based on id from database
         const hospital = await Hospital.findOne({
             _id: req.params.id
         });
 
+        // return found record
         res.status(200).send(hospital);
     }catch(err){
         console.log(err.message);
@@ -52,6 +68,9 @@ exports.getOneHospital = async (req, res) => {
     }
 }
 
+/**
+ * UPDATE Hospital data
+ */
 exports.updateHospital = async (req, res) => {
 
     try{
@@ -59,23 +78,23 @@ exports.updateHospital = async (req, res) => {
             _id: req.params.id
         });
     
-        console.log(hospital);
+        // console.log(hospital);
     
+        // check whether hospital exists or not
         if (hospital == null) {
             return res.status(400).send({
                 message: "Hospital doesn't exist"
             })
         }
     
+        // update respective fields
         hospital.name = req.body.name != undefined ? req.body.name : hospital.name;
-        hospital.address = req.body.address != undefined ? req.body.address : hospital.address;
-        //hospital.doctor_ids = req.body.doctor_ids != undefined ? req.body.doctor_ids : hospital.doctor_ids;
+        hospital.address = req.body.address != undefined ? req.body.address : hospital.address;    
     
-    
+        // save updated object
         const updatedHospital = await hospital.save();
     
-    
-    
+        // return saved object
         return res.status(200).send(updatedHospital);
     }catch(err){
         console.log(err.message);
@@ -86,13 +105,29 @@ exports.updateHospital = async (req, res) => {
     
 }
 
+/**
+ * Delete Hospital object
+ */
 exports.deleteHospital = async (req, res) => {
     try {
-        const hospital = await Hospital.deleteOne({
+        const hospital = await Hospital.findOne({
             _id: req.params.id
-        });    
+        });
+
+        // check whether hospital is valid or not
+        if (hospital == null) {
+            return res.status(400).send({
+                message: "Hospital doesn't exist"
+            })
+        }
+
+        // delete object from database
+        await Hospital.deleteOne({
+            _id: req.params.id
+        });
+
         res.status(200).send({
-            message : "succesfully deleted hospital"
+            message : "Hospital succesfully deleted"
         });
     } catch (error) {
         console.log(err.message);

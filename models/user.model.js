@@ -8,9 +8,9 @@
  const userSchema = new mongoose.Schema({
  
      /**
-      * name, userId, password, email, createdAt , updatedAt
-      * userType [ ADMIN | ENGINEER | CUSTOMER ] , 
-      * userStatus [ Pending | Approved | Rejected ]
+      * name, userId, password, address, createdAt , updatedAt, hospitalId
+      * healthTrackRecords, patientAppointments, doctorAppointments
+      * userType [ ADMIN | PATIENT | DOCTOR ]
       */
      name : {
          type : String,
@@ -54,6 +54,14 @@
      healthTrackRecords: {
         type : [mongoose.SchemaTypes.ObjectId],
         ref : "HealthTrackRecord"
+     },
+     patientAppointments: {
+        type : [mongoose.SchemaTypes.ObjectId],
+        ref : "Appointment"
+     },
+     doctorAppointments: {
+        type : [mongoose.SchemaTypes.ObjectId],
+        ref : "Appointment"
      }
  
  });

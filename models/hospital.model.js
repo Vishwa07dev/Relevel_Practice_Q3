@@ -5,7 +5,8 @@ const mongoose = require("mongoose");
 const hospitalSchema = new mongoose.Schema({
 
     /**
-     * name, address, verified, createdAt , updatedAt
+     * name, address
+     * doctor_ids-[ref]
      */
     name : {
         type : String,
@@ -16,7 +17,8 @@ const hospitalSchema = new mongoose.Schema({
         required : true
     },
     doctor_ids :{
-        type : [mongoose.SchemaTypes.ObjectId]
+        type : [mongoose.SchemaTypes.ObjectId],
+        ref: "User"
     },
     createdAt : {
         type : Date,
