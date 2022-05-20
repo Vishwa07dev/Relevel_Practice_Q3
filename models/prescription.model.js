@@ -37,6 +37,10 @@ const prescriptionSchema = new mongoose.Schema({
         type : mongoose.SchemaTypes.ObjectId,
         ref: "User"
     },
+    appointmentId: {
+        type : mongoose.SchemaTypes.ObjectId,
+        ref: "Appointment"
+    },
     medicines : {
         type : [medicalSchema]
     },

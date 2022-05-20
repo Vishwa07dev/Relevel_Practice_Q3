@@ -23,6 +23,7 @@ exports.createPrescription = async (req, res) => {
             patientId: appointment.patientId,
             hospitalId: appointment.hospitalId,
             doctorId: appointment.doctorId,
+            appointmentId: appointment._id,
             medicines: req.body.medicines,
             tests: req.body.tests,
             comments: req.body.comments
