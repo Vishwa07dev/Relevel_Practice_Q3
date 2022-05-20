@@ -1,4 +1,11 @@
 
+/**
+ * This file will act as the route for authentication and authorzation
+ * 
+ */
+
+// define the routes - REST endpoints for Track records
+
 const healthTrackRecordController = require("../controllers/healthTrackRecord.controller");
 const { authJwt, verifyTrackRecord } = require("../middlewares");
 

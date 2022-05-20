@@ -3,16 +3,21 @@ const mongoose = require("mongoose");
 const constants = require("../utils/constants");
 
 const appointmentSchema = new mongoose.Schema({
+    /**
+     * patientId, hospitalId, doctorId, date, cost, updatedAt, identifiedSymptoms
+     * prescription [ref]
+     * status [ OPEN | CANCEL | COMPLETE ]
+     */
     patientId : {
-        type : [mongoose.SchemaTypes.ObjectId],
+        type : mongoose.SchemaTypes.ObjectId,
         ref: "User"
     },
     hospitalId: {
-        type : [mongoose.SchemaTypes.ObjectId],
+        type : mongoose.SchemaTypes.ObjectId,
         ref: "Hospital"
     },
     doctorId : {
-        type : [mongoose.SchemaTypes.ObjectId],
+        type : mongoose.SchemaTypes.ObjectId,
         ref: "User"
     },
     date : {
@@ -32,7 +37,8 @@ const appointmentSchema = new mongoose.Schema({
         type: [String]
     },
     prescription: {
-        type: String
+        type: mongoose.SchemaTypes.ObjectId,
+        ref: "Prescription"
     },
     createdAt : {
         type : Date,

@@ -14,12 +14,13 @@ exports.signup = async (req, res) => {
 
     try {
         if(req.body.userType == constants.userType.doctor){
+            // If user is DOCTOR, hospital ID is required
             if(req.body.hospitalId){
-                // validate hospitalId
                 const hospital = await Hospital.findOne({
                     _id: req.body.hospitalId
                 });
 
+                // check whether hospital is valid or not
                 console.log(hospital);
                 if(hospital == null){
                     return res.status(400).send({
@@ -42,7 +43,8 @@ exports.signup = async (req, res) => {
             userType: req.body.userType,
             hospitalId: req.body.hospitalId,
             healthTrackRecords: [],
-            appointments: []
+            patientAppointments: [],
+            doctorAppointments: []
         }
         /**
          * Insert this new user to the db
@@ -50,6 +52,7 @@ exports.signup = async (req, res) => {
 
         const user = await User.create(userObjToBeStoredInDB);
 
+        // return created user
         res.status(201).send(objectConverter.userResponse([user]));
     } catch (err) {
         console.error("Error while creating new user", err.message);

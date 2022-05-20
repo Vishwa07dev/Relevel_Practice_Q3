@@ -5,7 +5,8 @@ const mongoose = require("mongoose");
 const hospitalSchema = new mongoose.Schema({
 
     /**
-     * name, address, verified, createdAt , updatedAt
+     * name, address
+     * doctor_ids-[ref]
      */
     name : {
         type : String,

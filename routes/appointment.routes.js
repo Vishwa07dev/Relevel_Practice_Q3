@@ -1,18 +1,23 @@
+/**
+ * This file will act as the route for authentication and authorzation
+ * 
+ */
+
+// define the routes - REST endpoints for appointment
 
 const appointmentController = require("../controllers/appointment.controller");
-const { authJwt, verifyTrackRecord } = require("../middlewares");
+const { authJwt, verifyAppointment } = require("../middlewares");
 
 module.exports = (app)=>{
 
-    app.post("/getfit/api/v1/appointments", [authJwt.verifyToken, authJwt.isPatient], appointmentController.takeAppointment);
+    app.post("/getfit/api/v1/appointments", [authJwt.verifyToken], appointmentController.takeAppointment);
 
-    // authJwt.isPatient, authJwt.isDoctor, authJwt.isAdmin,
-    app.put("/getfit/api/v1/appointments/:id", [authJwt.verifyToken, authJwt.isOwnerOfAppointment], appointmentController.updateAppointment);
+    app.put("/getfit/api/v1/appointments/:id", [authJwt.verifyToken, verifyAppointment.isOwnerOfAppointmentOrAdmin], appointmentController.updateAppointment);
 
-    app.delete("/getfit/api/v1/appointments/:id", [authJwt.verifyToken, authJwt.isPatient, authJwt.isAdmin, verifyTrackRecord.isOwnerOfHealthRecord], appointmentController.deleteAppointment);
+    app.delete("/getfit/api/v1/appointments/:id", [authJwt.verifyToken, verifyAppointment.isOwnerOfAppointmentOrAdmin], appointmentController.cancelAppointment);
     
     app.get("/getfit/api/v1/appointments", [authJwt.verifyToken], appointmentController.getAllAppointments);
     
-    app.get("/getfit/api/v1/appointments/:id", [authJwt.verifyToken, authJwt.isOwnerOfAppointment], appointmentController.getOneAppointment);
+    app.get("/getfit/api/v1/appointments/:id", [authJwt.verifyToken, verifyAppointment.isOwnerOfAppointmentOrAdmin], appointmentController.getOneAppointment);
     
 }
