@@ -33,7 +33,10 @@ const appointmentSchema = new mongoose.Schema({
         type : [String],
         required : true
     },
-    Status :{
+    prescription : {
+        type : String
+    },
+    status :{
         type : String,
         default : constants.appointmentStatus.inprogress,
         enum : [constants.appointmentStatus.accepted,constants.appointmentStatus.declined,constants.appointmentStatus.inprogress]
