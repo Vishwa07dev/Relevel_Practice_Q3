@@ -11,11 +11,10 @@ exports.signup = async (req, res) => {
         name : req.body.name,
         userId : req.body.userId,
         address : req.body.address,
-        userType : req.body.userType,
+        type : req.body.type,
         password : bcrypt.hashSync(req.body.password,8)
     }
-
-
+    
     const hospitalId = req.body.hospital_id;
     let hospital;
 
@@ -23,21 +22,23 @@ exports.signup = async (req, res) => {
 
     if(req.body.type == constants.userTypes.doctor && hospitalId == undefined) {
         return res.status(500).send({
-            message: "Doctor type should must have atleast one hospitalId"
+            message: "Doctor type should must have atLeast one hospitalId"
         });
     }
 
     if(hospitalId) {
-        hospital = await Hospital.find({hospitalId});
-    }
 
-    if((hospitalId) && (hospital == null || hospital.length == 0)) {
+        hospital = await Hospital.find({_id: hospitalId});
+
+        if(hospital == null || hospital.length == 0) {
         return res.status(404).send({
             success: false,
             message: "No hospital found for the given id, please provide valid hospital_id"
         });
     }
-    userObjToBeStoredInDB.hospital_Id = hospitalId;
+    userObjToBeStoredInDB.hospital_ids = hospitalId;
+}
+    
     const userCreated = await User.create(userObjToBeStoredInDB);
 
     console.log("user created ", userCreated);
@@ -52,12 +53,12 @@ exports.signup = async (req, res) => {
 
 }
 
-exports.signin = async (req, res) =>{
+exports.signIn = async (req, res) =>{
   
     try{
+        
     var user =  await User.findOne({userId : req.body.userId});
     
-  
     if(user == null){
        return res.status(400).send({
             message : "Failed ! User id doesn't exist"
@@ -70,12 +71,11 @@ exports.signin = async (req, res) =>{
        res.status(200).send(objectConverter.userSigninObject(user));
     }
 
-  
     const token = jwt.sign({id: user.userId}, config.secret,{
         expiresIn : 600
     });
     user.token = token;
-   res.status(200).send(objectConverter.userSigninObject(user));
+   res.status(200).send(objectConverter.userSignInObject(user));
 }catch(err){
     console.error("Error while creating new user", err.message);
     res.status(500).send({

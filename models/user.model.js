@@ -3,7 +3,7 @@ const mongoose = require("mongoose");
 const constants = require("../utils/constants");
 
 const userSchema = new mongoose.Schema({
-
+   
     name : {
         type : String,
         required : true
@@ -24,11 +24,19 @@ const userSchema = new mongoose.Schema({
     type : {
         type : String,
         required : true,
-        default : constants.userTypes.patient
+        default : constants.types.patient,
     },
-    hospital_id: {
+    healthTrackRecords: {
         type: [mongoose.SchemaTypes.ObjectId],
-        ref: "Hospital"
+        ref: "Health",
+    },
+    appointments: {
+       type: [mongoose.SchemaTypes.ObjectId],
+        ref: "Appointment", 
+    },
+    hospital_ids: {
+        type: [mongoose.SchemaTypes.ObjectId],
+        reference: "Hospital"
     },
     createdAt : {
         type : Date,
@@ -44,7 +52,7 @@ const userSchema = new mongoose.Schema({
             return Date.now();
         }
     },
-    
+     
 });
 
-module.exports = mongoose.model("user", userSchema);
+module.exports = mongoose.model("User", userSchema);

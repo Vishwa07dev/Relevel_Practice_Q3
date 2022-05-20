@@ -83,14 +83,19 @@ exports.getHospital = async (req, res) => {
 exports.deleteHospital = async (req, res) => {
 
     try {
-        await Hospital.findOneAndDelete({
+        const hospital = await Hospital.findOneAndDelete({
         _id: req.params.id
     });
 
+    if(!hospital) {
+        return res.status(404).send({
+            message: "No hospital found for the given id"
+        });
+    }
     return res.status(200).send({
         success: true,
         message: "Hospital details were deleted"
-    })
+    });
     } catch (err) {
         console.log(err);
         return res.status(500).send({

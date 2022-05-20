@@ -28,8 +28,6 @@ isHospital = async (req, res, next) => {
 const authHospital = {
     checkFields: checkFields,
     isHospital: isHospital
-    
-
 };
 
 module.exports = authHospital;

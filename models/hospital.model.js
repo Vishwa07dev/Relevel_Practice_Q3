@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 
 const hospitalSchema = new mongoose.Schema({
-
+    
     name: {
         type : String,
         required : true
@@ -11,8 +11,8 @@ const hospitalSchema = new mongoose.Schema({
         required : true 
     },
     doctor_ids: {
-        type: Array,
-        required: true
+        type: [mongoose.SchemaTypes.ObjectId],
+        reference: "User"
     },
     createdAt : {
         type : Date,
@@ -27,7 +27,6 @@ const hospitalSchema = new mongoose.Schema({
             return Date.now();
         }
     }
-    
 });
 
-module.exports = mongoose.model("hospital", hospitalSchema);
+module.exports = mongoose.model("Hospital", hospitalSchema);

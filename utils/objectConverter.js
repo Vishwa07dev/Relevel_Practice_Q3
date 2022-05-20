@@ -11,7 +11,7 @@ exports.userCreationObject = (userCreated) => {
        _id: userCreated._id,
         name : userCreated.name,
         userId : userCreated.userId,
-        hospital_id: userCreated.hospital_id,
+        hospital_id: userCreated.hospital_Id,
         address : userCreated.address,
         userType : userCreated.userType,
         createdAt : userCreated.createdAt,
@@ -19,7 +19,7 @@ exports.userCreationObject = (userCreated) => {
     }
 }
 
-exports.userSigninObject = (user) => {
+exports.userSignInObject = (user) => {
        return {
        _id: user._id,
         name : user.name,
@@ -32,3 +32,4 @@ exports.userSigninObject = (user) => {
         token: user.token
     }
 }
+

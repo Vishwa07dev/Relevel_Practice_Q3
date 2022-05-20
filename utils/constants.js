@@ -1,7 +1,11 @@
  module.exports = {
-    userTypes : {
+    types : {
         admin : "ADMIN",
         doctor : "DOCTOR",
         patient : "PATIENT"
+    },
+    appointmentStatus: {
+        pending: "PENDING",
+        completed: "COMPLETED"
     }
 };

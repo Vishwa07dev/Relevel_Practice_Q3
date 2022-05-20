@@ -1,7 +1,9 @@
 const HospitalCheckPoint = require("./hospital.middleware");
-const userCheckPoint = require("./user.middleware");
+const authCheckPoint = require("./auth.middleware");
+const appointmentCheckPoint = require("./appointment.middleware")
 
 module.exports = {
     HospitalCheckPoint,
-    userCheckPoint
+    authCheckPoint,
+    appointmentCheckPoint
 }
