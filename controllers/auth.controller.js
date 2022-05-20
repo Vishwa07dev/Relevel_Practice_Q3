@@ -42,7 +42,8 @@ exports.signup = async (req, res) => {
             userType: req.body.userType,
             hospitalId: req.body.hospitalId,
             healthTrackRecords: [],
-            appointments: []
+            appointmentCreated: [],
+            appointmentAssigned : []
         }
         /**
          * Insert this new user to the db
