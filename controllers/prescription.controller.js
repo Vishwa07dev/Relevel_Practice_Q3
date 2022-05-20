@@ -147,6 +147,14 @@ exports.deletePrescription = async (req, res) => {
         await Prescription.deleteOne({
             _id: req.params.id
         });
+
+        const appointment = await Appointment.findOne({
+            prescription: prescription._id
+        });
+
+        // remove prescription from appointment
+        appointment.prescription = null;
+        await appointment.save();
         
         res.status(200).send({
             message: "Prescription deleted successfully"

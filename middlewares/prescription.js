@@ -11,6 +11,15 @@ const constants = require("../utils/constants");
  */
 const verifyCreatePrescription = async (req,res, next) =>{
     try {
+        const user = await User.findOne({
+            userId: req.userId
+        });
+
+        if(user.userType == constants.userType.patient){
+            return res.status(400).send({
+                message: "Requires DOCTOR/ADMIN Role"
+            })
+        }
 
         // check if given ObjectId is valid or not
         if(!mongoose.Types.ObjectId.isValid(req.body.appointmentId)){
@@ -56,8 +65,19 @@ const verifyCreatePrescription = async (req,res, next) =>{
 /**
  * Verify whether Prescription is valid or not
  */
-const verifyValidPrescription = async (req,res, next) =>{
+const verifyValidPrescriptionForChange = async (req,res, next) =>{
     try {
+
+        const user = await User.findOne({
+            userId: req.userId
+        });
+
+        // PATIENT cannot delete or update prescription
+        if(user.userType == constants.userType.patient){
+            return res.status(400).send({
+                message: "Requires DOCTOR/ADMIN Role"
+            })
+        }
 
         // check if given ObjectId is valid or not
         if(!mongoose.Types.ObjectId.isValid(req.params.id)){
@@ -118,7 +138,7 @@ const isOwnerOfPrescriptionOrAdmin = async (req,res, next) =>{
 
 const verifyPrescription = {
     verifyCreatePrescription : verifyCreatePrescription,
-    verifyValidPrescription: verifyValidPrescription,
+    verifyValidPrescriptionForChange: verifyValidPrescriptionForChange,
     isOwnerOfPrescriptionOrAdmin: isOwnerOfPrescriptionOrAdmin
 };
 module.exports= verifyPrescription;

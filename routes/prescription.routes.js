@@ -13,9 +13,9 @@ module.exports = (app)=>{
 
     app.post("/getfit/api/v1/prescriptions", [authJwt.verifyToken, verifyPrescription.verifyCreatePrescription], prescriptionController.createPrescription);
 
-    app.put("/getfit/api/v1/prescriptions/:id", [authJwt.verifyToken, verifyPrescription.verifyValidPrescription, verifyPrescription.isOwnerOfPrescriptionOrAdmin], prescriptionController.updatePrescription);
+    app.put("/getfit/api/v1/prescriptions/:id", [authJwt.verifyToken, verifyPrescription.verifyValidPrescriptionForChange, verifyPrescription.isOwnerOfPrescriptionOrAdmin], prescriptionController.updatePrescription);
 
-    app.delete("/getfit/api/v1/prescriptions/:id", [authJwt.verifyToken, verifyPrescription.verifyValidPrescription, verifyPrescription.isOwnerOfPrescriptionOrAdmin], prescriptionController.deletePrescription);
+    app.delete("/getfit/api/v1/prescriptions/:id", [authJwt.verifyToken, verifyPrescription.verifyValidPrescriptionForChange, verifyPrescription.isOwnerOfPrescriptionOrAdmin], prescriptionController.deletePrescription);
     
     app.get("/getfit/api/v1/prescriptions", [authJwt.verifyToken], prescriptionController.getAllPrescriptions);
     

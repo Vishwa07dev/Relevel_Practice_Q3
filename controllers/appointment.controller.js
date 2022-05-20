@@ -42,7 +42,7 @@ exports.takeAppointment = async (req, res) => {
             date: req.body.date,
             cost: req.body.cost,
             identifiedSymptoms: req.body.identifiedSymptoms,
-            prescription: ""
+            prescription: null
         }
 
         // save appointment object into database using appointment model
