@@ -1,4 +1,5 @@
 const mongoose = require("mongoose");
+const constants = require('../utils/constants');
 
 const AppointmentSchema = new mongoose.Schema({
     patient_id: {
@@ -22,6 +23,12 @@ const AppointmentSchema = new mongoose.Schema({
     patient_symptoms: {
         type: String,
         required: true
+    },
+    status: {
+        type: String,
+        required: true,
+        enum: [constants.appointment_status.confirmed, constants.appointment_status.cancelled],
+        default: constants.appointment_status.confirmed
     },
     prescription_id: {
         type: mongoose.SchemaTypes.ObjectId
