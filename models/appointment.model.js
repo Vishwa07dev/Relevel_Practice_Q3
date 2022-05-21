@@ -3,17 +3,17 @@ const constants = require("../utils/constants");
 
 const appointmentSchema = new mongoose.Schema({ 
 
-    patient_id: { 
+    patientId: { 
     type: mongoose.SchemaTypes.ObjectId,
     reference: "User",
     required: true
     },
-    hospital_id: {
+    hospitalId: {
         type: mongoose.SchemaTypes.ObjectId,
         reference: "Hospital",
         required: true
     },
-    doctor_id: {
+    doctorId: {
         type: mongoose.SchemaTypes.ObjectId,
         reference: "User",
         required: true

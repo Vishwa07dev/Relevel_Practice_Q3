@@ -10,7 +10,9 @@ module.exports = (app)=> {
 
     app.put("/getfit/api/v1/appointments/:id", [authCheckPoint.verifyToken, appointmentCheckPoint.isValidDoctor], appointmentController.providePrescription);
 
-    app.get("/getfit/api/v1/appointments/:id", [authCheckPoint.verifyToken], appointmentController.getPrescription);
+    app.get("/getfit/api/v1/appointments/prescription/:id", [authCheckPoint.verifyToken], appointmentController.getPrescription);
+
+    app.get("/getfit/api/v1/appointments/", [authCheckPoint.verifyToken], appointmentController.getAppointments);
 
 
 }

@@ -6,12 +6,11 @@ exports.createHealthTrackRecord = async (req, res) => {
     const user = await User.find({_id: req.user_id});
 
     const HealthTrackRecordObj = {
-        user_id: req.user_id,
+        userId: req.userId,
         height: req.body.height,
         weight: req.body.weight,
         bloodPressure: req.body.bloodPressure,
         sugarLevel: req.body.sugarLevel,
-        hemoglobin: req.body.hemoglobin,
         identifiedSymptoms: req.body.identifiedSymptoms,
     }
 

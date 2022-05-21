@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 const healthSchema = new mongoose.Schema({
     
-    user_id: {
+    userId: {
         type: mongoose.SchemaTypes.ObjectId,
         reference: "User",
         required: true,
@@ -16,9 +16,6 @@ const healthSchema = new mongoose.Schema({
     identifiedSymptoms: {
         type: String,
         required: true,
-    },
-    hemoglobin: {
-        type: String,
     },
     bloodPressure: {
         type: Number,

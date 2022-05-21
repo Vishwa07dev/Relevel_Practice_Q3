@@ -10,7 +10,7 @@ const hospitalSchema = new mongoose.Schema({
         type : String,
         required : true 
     },
-    doctor_ids: {
+    doctorIds: {
         type: [mongoose.SchemaTypes.ObjectId],
         reference: "User"
     },

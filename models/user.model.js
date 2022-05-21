@@ -30,11 +30,15 @@ const userSchema = new mongoose.Schema({
         type: [mongoose.SchemaTypes.ObjectId],
         ref: "Health",
     },
-    appointments: {
+    appointments: { 
        type: [mongoose.SchemaTypes.ObjectId],
         ref: "Appointment", 
     },
-    hospital_ids: {
+    patientAppointments: { 
+       type: [mongoose.SchemaTypes.ObjectId],
+        ref: "Appointment", 
+    },
+    hospitalIds: {
         type: [mongoose.SchemaTypes.ObjectId],
         reference: "Hospital"
     },

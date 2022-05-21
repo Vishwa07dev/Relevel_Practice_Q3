@@ -15,5 +15,4 @@ module.exports = (app)=> {
     app.get("/getfit/api/v1/hospitals/", hospitalController.getAllHospitals);
 
     app.delete("/getfit/api/v1/hospitals/:id", [authCheckPoint.validateSignInRequest, authCheckPoint.verifyToken, authCheckPoint.isAdmin, HospitalCheckPoint.isHospital], hospitalController.deleteHospital);
-
 }
